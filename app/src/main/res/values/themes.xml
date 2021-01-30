@@ -1,0 +1,10 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.MovieTVCatalogue" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/movTheme_dark</item>
+        <item name="colorPrimaryDark">@color/accentTheme</item>
+        <item name="colorAccent">@color/accentTheme</item>
+        <!-- Customize your theme here. -->
+    </style>
+</resources>
