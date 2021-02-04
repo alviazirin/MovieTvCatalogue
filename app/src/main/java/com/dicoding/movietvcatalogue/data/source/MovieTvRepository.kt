@@ -4,7 +4,7 @@ import com.dicoding.movietvcatalogue.data.source.remote.RemoteDataSource
 import com.dicoding.movietvcatalogue.entity.MovieTVEntity
 import com.dicoding.movietvcatalogue.entity.MovieTvDetailEntity
 
-class MovieTvRepository private constructor(private val remoteDataSource: RemoteDataSource): MovieTvDataSource {
+class MovieTvRepository(private val remoteDataSource: RemoteDataSource): MovieTvDataSource {
 
     companion object{
         @Volatile

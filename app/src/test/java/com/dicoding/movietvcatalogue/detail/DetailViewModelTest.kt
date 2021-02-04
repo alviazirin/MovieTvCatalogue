@@ -1,37 +1,83 @@
 package com.dicoding.movietvcatalogue.detail
 
+import com.dicoding.movietvcatalogue.data.source.MovieTvRepository
+import com.dicoding.movietvcatalogue.di.BaseApplication
+import com.dicoding.movietvcatalogue.di.appModule
+import com.dicoding.movietvcatalogue.di.viewModelModule
 import com.dicoding.movietvcatalogue.entity.MovieTvDetailEntity
+import com.dicoding.movietvcatalogue.utils.DataDummy
 import org.junit.Test
 
 import org.junit.Assert.*
-import org.junit.Before
+import org.junit.Rule
+import org.koin.test.KoinTest
+import org.koin.test.KoinTestRule
+import org.koin.test.get
+import org.koin.test.mock.MockProviderRule
+import org.koin.test.mock.declareMock
+import org.mockito.Mockito
+import org.mockito.Mockito.`when`
 
-class DetailViewModelTest {
+class DetailViewModelTest : KoinTest {
 
-    private lateinit var viewModel: DetailViewModel
-    private lateinit var showDetails: MovieTvDetailEntity
-    private val dummyId = 1
-    private val typeMovie = 1
-    private val typeTvShow = 2
+    private val dummyMovieId = 1
+    private val dummyTvId = 20
 
 
-    @Before
-    fun setup(){
-        viewModel = DetailViewModel()
+    @get:Rule
+    val koinTestRule = KoinTestRule.create {
+        val baseApplication = BaseApplication()
+        modules(listOf(appModule, viewModelModule))
+    }
+
+    @get:Rule
+    val mockProvider = MockProviderRule.create { clazz ->
+        Mockito.mock(clazz.java)
+    }
+
+    @Test
+    fun checkInjection(){
+
+            val mock = declareMock<MovieTvRepository>()
+
+            assertNotNull(get<MovieTvRepository>())
+
+            assertNotNull(get<DetailViewModel>())
+
     }
 
     @Test
     fun getDetailMovie(){
-        val data = viewModel.getDetail(typeMovie,dummyId)
+        val dataDetail = DataDummy.generateDetail("1")
+        val mock = declareMock<DetailViewModel>()
+        `when`(mock.getDetailMovie("1")).thenReturn(DataDummy.generateDetail("1"))
+        val data = mock.getDetailMovie("1")
         assertNotNull(data)
-        assertEquals(dummyId, data.id)
+        assertEquals(dummyMovieId, data.id)
+        assertEquals(dataDetail.title, data.title)
+        assertEquals(dataDetail.year, data.year)
+        assertEquals(dataDetail.genre, data.genre)
+        assertEquals(dataDetail.producer, data.producer)
+        assertEquals(dataDetail.overview, data.overview)
+        assertEquals(dataDetail.poster, data.poster)
+        assertEquals(dataDetail.url, data.url)
     }
 
     @Test
     fun getDetailTvShow(){
-        val data = viewModel.getDetail(typeTvShow,dummyId)
+        val dataDetail = DataDummy.generateDetail("20")
+        val mock = declareMock<DetailViewModel>()
+        `when`(mock.getDetailTvShow("20")).thenReturn(DataDummy.generateDetail("20"))
+        val data = mock.getDetailTvShow("20")
         assertNotNull(data)
-        assertEquals(dummyId, data.id)
+        assertEquals(dummyTvId, data.id)
+        assertEquals(dataDetail.title, data.title)
+        assertEquals(dataDetail.year, data.year)
+        assertEquals(dataDetail.genre, data.genre)
+        assertEquals(dataDetail.producer, data.producer)
+        assertEquals(dataDetail.overview, data.overview)
+        assertEquals(dataDetail.poster, data.poster)
+        assertEquals(dataDetail.url, data.url)
     }
 
 

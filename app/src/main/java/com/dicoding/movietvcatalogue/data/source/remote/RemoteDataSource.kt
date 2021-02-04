@@ -4,7 +4,7 @@ import com.dicoding.movietvcatalogue.data.source.remote.response.MovieTvDetailRe
 import com.dicoding.movietvcatalogue.data.source.remote.response.MovieTvResponse
 import com.dicoding.movietvcatalogue.utils.JsonHelper
 
-class RemoteDataSource private constructor(private val jsonHelper: JsonHelper) {
+class RemoteDataSource(private val jsonHelper: JsonHelper) {
 
     companion object{
         @Volatile

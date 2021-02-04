@@ -1,14 +1,32 @@
 package com.dicoding.movietvcatalogue.utils
 
 import android.content.Context
+import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import com.dicoding.movietvcatalogue.api.ApiConfig
+import com.dicoding.movietvcatalogue.data.source.remote.response.MovieResponse
 import com.dicoding.movietvcatalogue.data.source.remote.response.MovieTvDetailResponse
 import com.dicoding.movietvcatalogue.data.source.remote.response.MovieTvResponse
+import com.dicoding.movietvcatalogue.data.source.remote.response.ResultsMovieItem
 import org.json.JSONException
 import org.json.JSONObject
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.io.IOException
 
 class JsonHelper(private val context: Context) {
+
     private val basePosterUrl = "https://image.tmdb.org/t/p/original"
+    private val _isLoading = MutableLiveData<Boolean>()
+    val isLoading: LiveData<Boolean> = _isLoading
+
+    companion object{
+        const val TAG = "JsonHelper"
+    }
+
+
     private fun parsingFileToString(fileName: String): String? {
         return try {
             val `is` = context.assets.open(fileName)
@@ -37,7 +55,7 @@ class JsonHelper(private val context: Context) {
                 val posterPath = movie.getString("poster_path")
                 val poster = basePosterUrl+posterPath
 
-                val movieTvResponse = MovieTvResponse(id.toInt(),title, year[0], poster)
+                val movieTvResponse = MovieTvResponse(id.toInt(),title, year[0], posterPath)
                 list.add(movieTvResponse)
             }
         } catch (e: JSONException){
@@ -61,7 +79,7 @@ class JsonHelper(private val context: Context) {
                 val posterPath = tvShow.getString("poster_path")
                 val poster = basePosterUrl+posterPath
 
-                val movieTvResponse = MovieTvResponse(id.toInt(),title, year[0], poster)
+                val movieTvResponse = MovieTvResponse(id.toInt(),title, year[0], posterPath)
                 list.add(movieTvResponse)
             }
         } catch (e: JSONException){
@@ -103,7 +121,7 @@ class JsonHelper(private val context: Context) {
                 val homepage = responseObject.getString("homepage")
                 val posterPath = responseObject.getString("poster_path")
                 val poster = basePosterUrl+posterPath
-                movieTvDetailResponse = MovieTvDetailResponse(id.toInt(),title,year[0],genre.joinToString(", "),productionCompanies.joinToString(", "),overview, homepage, poster)
+                movieTvDetailResponse = MovieTvDetailResponse(id.toInt(),title,year[0],genre.joinToString(", "),productionCompanies.joinToString(", "),overview, homepage, posterPath)
             }
         } catch (e: JSONException){
             e.printStackTrace()
@@ -150,5 +168,27 @@ class JsonHelper(private val context: Context) {
             e.printStackTrace()
         }
         return movieTvDetailResponse as MovieTvDetailResponse
+    }
+
+    fun loadMovieApi(): LiveData<List<ResultsMovieItem>>{
+        val movieListResult = MutableLiveData<List<ResultsMovieItem>>()
+        val responseMov = ArrayList<ResultsMovieItem>()
+        val client = ApiConfig.getMovieService().getMovie()
+        client.enqueue(object : Callback<MovieResponse>{
+            override fun onResponse(call: Call<MovieResponse>, response: Response<MovieResponse>) {
+                _isLoading.value = false
+                if (response.isSuccessful){
+                    movieListResult.value = response.body()?.results
+
+                }
+            }
+
+            override fun onFailure(call: Call<MovieResponse>, t: Throwable) {
+                _isLoading.value = false
+                Log.e(TAG, "onFailure: ${t.message.toString()}")
+            }
+
+        })
+        return movieListResult
     }
 }

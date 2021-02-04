@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.dicoding.movietvcatalogue.databinding.ActivityMainBinding
 import com.dicoding.movietvcatalogue.databinding.FragmentMoviesBinding
 import com.dicoding.movietvcatalogue.viewmodel.ViewModelFactory
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.lang.NullPointerException
 
 
@@ -17,6 +18,8 @@ class MoviesFragment : Fragment() {
 
     private lateinit var moviesBinding: FragmentMoviesBinding
     private lateinit var mainBinding: ActivityMainBinding
+
+    val viewModel by viewModel<MoviesViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,8 +32,8 @@ class MoviesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         if (activity != null){
-            val factory = ViewModelFactory.getInstance(requireActivity())
-            val viewModel = ViewModelProvider(this, factory)[MoviesViewModel::class.java]
+            /*val factory = ViewModelFactory.getInstance(requireActivity())
+            val viewModel = ViewModelProvider(this, factory)[MoviesViewModel::class.java]*/
             try {
                 val movies = viewModel.getMoviesSimple()
                 showLoading(true)

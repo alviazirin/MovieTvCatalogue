@@ -9,12 +9,14 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dicoding.movietvcatalogue.databinding.FragmentTvBinding
 import com.dicoding.movietvcatalogue.viewmodel.ViewModelFactory
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.lang.NullPointerException
 
 
 class TvFragment : Fragment() {
 
     private lateinit var tvBinding: FragmentTvBinding
+    val viewModel by viewModel<TvShowViewModel>()
 
 
     override fun onCreateView(
@@ -28,8 +30,8 @@ class TvFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         if (activity != null){
-            val factory = ViewModelFactory.getInstance(requireActivity())
-            val viewModel = ViewModelProvider(this, factory)[TvShowViewModel::class.java]
+            /*val factory = ViewModelFactory.getInstance(requireActivity())
+            val viewModel = ViewModelProvider(this, factory)[TvShowViewModel::class.java]*/
             try {
                 showLoading(true)
                 val tvShow = viewModel.getTvShow()

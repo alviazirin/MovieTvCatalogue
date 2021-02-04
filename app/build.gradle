@@ -60,6 +60,8 @@ dependencies {
     implementation "androidx.appcompat:appcompat:$appCompatVersion"
     implementation "androidx.cardview:cardview:$cardViewVersion"
 
+
+
     // Koin AndroidX Scope features
     implementation "org.koin:koin-androidx-scope:$koinVersion"
     // Koin AndroidX ViewModel features
@@ -72,7 +74,21 @@ dependencies {
     implementation "org.koin:koin-androidx-compose:$koinVersion"
     // Koin AndroidX Experimental features
     implementation "org.koin:koin-androidx-ext:$koinVersion"
+    // Koin for Kotlin
+    implementation "org.koin:koin-core:$koinVersion"
+    // Koin extended & experimental features
+    implementation "org.koin:koin-core-ext:$koinVersion"
 
+    //Retrofit
+    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+    implementation "com.squareup.okhttp3:logging-interceptor:$okhttp3Version"
+    
+    // Koin for Unit tests
+    testImplementation "org.koin:koin-test:$koinVersion"
+
+    testImplementation "org.mockito:mockito-core:$mockitoVersion"
+    testImplementation "org.mockito:mockito-inline:$mockitoVersion"
 
     testImplementation "junit:junit:$junitVersion"
 

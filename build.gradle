@@ -6,7 +6,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath "com.android.tools.build:gradle:4.1.1"
+        classpath 'com.android.tools.build:gradle:4.1.2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
 
 
@@ -20,7 +20,9 @@ allprojects {
     repositories {
         google()
         jcenter()
-
+         maven {
+             url 'https://maven.google.com'
+         }
     }
 }
 
@@ -40,6 +42,8 @@ ext {
     robolectricVersion = '4.4'
     mockitoVersion = '3.7.7'
     koinVersion = '2.2.2'
+    retrofitVersion = '2.9.0'
+    okhttp3Version = '4.9.1'
 
 
     materialVersion = '1.2.1'

@@ -11,13 +11,14 @@ import com.bumptech.glide.request.RequestOptions
 import com.dicoding.movietvcatalogue.databinding.ActivityDetailActitvityBinding
 import com.dicoding.movietvcatalogue.entity.MovieTvDetailEntity
 import com.dicoding.movietvcatalogue.viewmodel.ViewModelFactory
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class DetailActivity : AppCompatActivity() {
 
     private lateinit var detailActitvityBinding: ActivityDetailActitvityBinding
     private lateinit var data: MovieTvDetailEntity
     private lateinit var dataAll: List<MovieTvDetailEntity>
-
+    val viewModel by viewModel<DetailViewModel>()
     companion object{
         const val EXTRA_ID = "extra_id"
         const val TYPE = "type"
@@ -28,8 +29,8 @@ class DetailActivity : AppCompatActivity() {
         detailActitvityBinding = ActivityDetailActitvityBinding.inflate(layoutInflater)
         setContentView(detailActitvityBinding.root)
 
-        val factory = ViewModelFactory.getInstance(this)
-        val viewModel = ViewModelProvider(this, factory)[DetailViewModel::class.java]
+        /*val factory = ViewModelFactory.getInstance(this)
+        val viewModel = ViewModelProvider(this, factory)[DetailViewModel::class.java]*/
         val extras = intent.extras
         if (extras != null){
             val id = extras.getInt(EXTRA_ID)

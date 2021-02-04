@@ -14,6 +14,7 @@ import com.dicoding.movietvcatalogue.entity.MovieTvDetailEntity
 class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
 
     private val listShows = ArrayList<MovieTVEntity>()
+    private val basePosterUrl = "https://image.tmdb.org/t/p/original"
 
     fun setShow(shows: List<MovieTVEntity>?){
         if (shows == null)

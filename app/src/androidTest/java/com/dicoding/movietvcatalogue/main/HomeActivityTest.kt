@@ -20,8 +20,10 @@ import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4ClassRunner::class)
 class HomeActivityTest {
-    private val dummyMovie = DataDummy.generateDummyDetailMovie()
-    private val dummyTvShow = DataDummy.generateDummyDetailTVShow()
+    private val dummyMovie = DataDummy.generateDummyMovie()
+    private val dummyDetailMov = DataDummy.generateDummyDetailMovie(dummyMovie[0].id.toString())
+    private val dummyTvShow = DataDummy.generateDummyTvShow()
+    private val dummyDetailTv = DataDummy.generateDummyDetailTVShow(dummyTvShow[0].id.toString())
     private lateinit var moviesViewModel: MoviesViewModel
     private lateinit var activity: HomeActivity
     private lateinit var moviesFragment: MoviesFragment
@@ -60,11 +62,11 @@ class HomeActivityTest {
         onView(withId(R.id.tv_creator_director)).check(matches(isDisplayed()))
         onView(withId(R.id.tv_description)).check(matches(isDisplayed()))
 
-        onView(withId(R.id.tv_title)).check(matches(withText(dummyMovie[0].title)))
-        onView(withId(R.id.tv_year)).check(matches(withText(dummyMovie[0].year)))
-        onView(withId(R.id.tv_genre)).check(matches(withText(dummyMovie[0].genre)))
-        onView(withId(R.id.tv_creator_director)).check(matches(withText(dummyMovie[0].producer)))
-        onView(withId(R.id.tv_description)).check(matches(withText(dummyMovie[0].overview)))
+        onView(withId(R.id.tv_title)).check(matches(withText(dummyDetailMov.title)))
+        onView(withId(R.id.tv_year)).check(matches(withText(dummyDetailMov.year)))
+        onView(withId(R.id.tv_genre)).check(matches(withText(dummyDetailMov.genre)))
+        onView(withId(R.id.tv_creator_director)).check(matches(withText(dummyDetailMov.producer)))
+        onView(withId(R.id.tv_description)).check(matches(withText(dummyDetailMov.overview)))
     }
 
     @Test
@@ -80,11 +82,11 @@ class HomeActivityTest {
         onView(withId(R.id.tv_creator_director)).check(matches(isDisplayed()))
         onView(withId(R.id.tv_description)).check(matches(isDisplayed()))
 
-        onView(withId(R.id.tv_title)).check(matches(withText(dummyTvShow[0].title)))
-        onView(withId(R.id.tv_year)).check(matches(withText(dummyTvShow[0].year)))
-        onView(withId(R.id.tv_genre)).check(matches(withText(dummyTvShow[0].genre)))
-        onView(withId(R.id.tv_creator_director)).check(matches(withText(dummyTvShow[0].producer)))
-        onView(withId(R.id.tv_description)).check(matches(withText(dummyTvShow[0].overview)))
+        onView(withId(R.id.tv_title)).check(matches(withText(dummyDetailTv.title)))
+        onView(withId(R.id.tv_year)).check(matches(withText(dummyDetailTv.year)))
+        onView(withId(R.id.tv_genre)).check(matches(withText(dummyDetailTv.genre)))
+        onView(withId(R.id.tv_creator_director)).check(matches(withText(dummyDetailTv.producer)))
+        onView(withId(R.id.tv_description)).check(matches(withText(dummyDetailTv.overview)))
     }
 
     @Test
