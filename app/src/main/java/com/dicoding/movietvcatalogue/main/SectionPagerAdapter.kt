@@ -18,12 +18,14 @@ class SectionPagerAdapter(private val mContext: Context, fm: FragmentManager) : 
 
     override fun getCount(): Int = 2
 
-    override fun getItem(position: Int): Fragment =
+    override fun getItem(position: Int): Fragment {
+        var fragment: Fragment? = null
         when(position){
-            0 -> MoviesFragment()
-            1 -> TvFragment()
-            else -> Fragment()
+            0 -> fragment = MoviesFragment().newInstance()
+            1 -> fragment = TvFragment().newInstance()
         }
+        return fragment as Fragment
+    }
 
     override fun getPageTitle(position: Int): CharSequence? = mContext.resources.getString(TITLES[position])
 

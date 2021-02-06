@@ -1,11 +1,13 @@
 package com.dicoding.movietvcatalogue.main.movie
 
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.dicoding.movietvcatalogue.data.source.remote.response.ResultsMovieItem
 import com.dicoding.movietvcatalogue.databinding.ItemMoviesBinding
 import com.dicoding.movietvcatalogue.detail.DetailActivity
 import com.dicoding.movietvcatalogue.entity.MovieTVEntity
@@ -14,7 +16,7 @@ import com.dicoding.movietvcatalogue.entity.MovieTvDetailEntity
 class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
 
     private val listShows = ArrayList<MovieTVEntity>()
-    private val basePosterUrl = "https://image.tmdb.org/t/p/original"
+
 
     fun setShow(shows: List<MovieTVEntity>?){
         if (shows == null)
@@ -30,6 +32,7 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
                     .load(shows.poster)
                     .apply(RequestOptions().override(130,144))
                     .into(ivPoster)
+                Log.d("adapter", shows.date)
 
                 tvTitle.text = shows.title
                 tvGenre.text = shows.date

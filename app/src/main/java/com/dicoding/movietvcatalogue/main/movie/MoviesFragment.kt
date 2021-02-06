@@ -5,11 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dicoding.movietvcatalogue.databinding.ActivityMainBinding
 import com.dicoding.movietvcatalogue.databinding.FragmentMoviesBinding
-import com.dicoding.movietvcatalogue.viewmodel.ViewModelFactory
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.lang.NullPointerException
 
@@ -18,9 +16,13 @@ class MoviesFragment : Fragment() {
 
     private lateinit var moviesBinding: FragmentMoviesBinding
     private lateinit var mainBinding: ActivityMainBinding
+    private lateinit var moviesAdapter: MovieAdapter
 
     val viewModel by viewModel<MoviesViewModel>()
 
+    fun newInstance(): MoviesFragment {
+        return MoviesFragment()
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -34,19 +36,25 @@ class MoviesFragment : Fragment() {
         if (activity != null){
             /*val factory = ViewModelFactory.getInstance(requireActivity())
             val viewModel = ViewModelProvider(this, factory)[MoviesViewModel::class.java]*/
+            moviesAdapter = MovieAdapter()
             try {
-                val movies = viewModel.getMoviesSimple()
                 showLoading(true)
-                val moviesAdapter = MovieAdapter()
-                moviesAdapter.setShow(movies)
+                viewModel.fetchMovie()
+                viewModel.getMovie().observe(viewLifecycleOwner) { movieList ->
+                    if (movieList != null) {
 
-                with(moviesBinding.rvMovies){
-                    layoutManager = LinearLayoutManager(context)
-                    setHasFixedSize(true)
-                    adapter = moviesAdapter
 
+                        moviesAdapter.setShow(movieList)
+
+                        with(moviesBinding.rvMovies){
+                            layoutManager = LinearLayoutManager(context)
+                            setHasFixedSize(true)
+                            adapter = moviesAdapter
+                            showLoading(false)
+                        }
+
+                    }
                 }
-                showLoading(false)
             } catch (e: NullPointerException){
                 showWarning(true)
             }

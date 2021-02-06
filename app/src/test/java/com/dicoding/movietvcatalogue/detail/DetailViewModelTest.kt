@@ -4,7 +4,6 @@ import com.dicoding.movietvcatalogue.data.source.MovieTvRepository
 import com.dicoding.movietvcatalogue.di.BaseApplication
 import com.dicoding.movietvcatalogue.di.appModule
 import com.dicoding.movietvcatalogue.di.viewModelModule
-import com.dicoding.movietvcatalogue.entity.MovieTvDetailEntity
 import com.dicoding.movietvcatalogue.utils.DataDummy
 import org.junit.Test
 
@@ -50,8 +49,8 @@ class DetailViewModelTest : KoinTest {
     fun getDetailMovie(){
         val dataDetail = DataDummy.generateDetail("1")
         val mock = declareMock<DetailViewModel>()
-        `when`(mock.getDetailMovie("1")).thenReturn(DataDummy.generateDetail("1"))
-        val data = mock.getDetailMovie("1")
+        `when`(mock.fetchDetailMovie("1")).thenReturn(DataDummy.generateDetail("1"))
+        val data = mock.fetchDetailMovie("1")
         assertNotNull(data)
         assertEquals(dummyMovieId, data.id)
         assertEquals(dataDetail.title, data.title)
@@ -67,8 +66,8 @@ class DetailViewModelTest : KoinTest {
     fun getDetailTvShow(){
         val dataDetail = DataDummy.generateDetail("20")
         val mock = declareMock<DetailViewModel>()
-        `when`(mock.getDetailTvShow("20")).thenReturn(DataDummy.generateDetail("20"))
-        val data = mock.getDetailTvShow("20")
+        `when`(mock.fetchDetailTvShow("20")).thenReturn(DataDummy.generateDetail("20"))
+        val data = mock.fetchDetailTvShow("20")
         assertNotNull(data)
         assertEquals(dummyTvId, data.id)
         assertEquals(dataDetail.title, data.title)

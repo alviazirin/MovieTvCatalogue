@@ -4,12 +4,10 @@ import com.dicoding.movietvcatalogue.data.source.MovieTvRepository
 import com.dicoding.movietvcatalogue.di.BaseApplication
 import com.dicoding.movietvcatalogue.di.appModule
 import com.dicoding.movietvcatalogue.di.viewModelModule
-import com.dicoding.movietvcatalogue.main.movie.MoviesViewModel
 import com.dicoding.movietvcatalogue.utils.DataDummy
 import org.junit.Test
 
 import org.junit.Assert.*
-import org.junit.Before
 import org.junit.Rule
 import org.koin.test.KoinTest
 import org.koin.test.KoinTestRule
@@ -46,8 +44,8 @@ class TvShowViewModelTest : KoinTest {
     @Test
     fun getTvShow(){
         val mock = declareMock<TvShowViewModel>()
-        `when`(mock.getTvShow()).thenReturn(DataDummy.generateDummyTvShow())
-        val tvShow = mock.getTvShow()
+        `when`(mock.fetchTvShow()).thenReturn(DataDummy.generateDummyTvShow())
+        val tvShow = mock.fetchTvShow()
         assertNotNull(tvShow)
         assertEquals(12, tvShow.size)
     }

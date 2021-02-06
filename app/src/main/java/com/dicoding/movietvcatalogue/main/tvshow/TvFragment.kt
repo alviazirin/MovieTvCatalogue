@@ -5,10 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dicoding.movietvcatalogue.databinding.FragmentTvBinding
-import com.dicoding.movietvcatalogue.viewmodel.ViewModelFactory
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.lang.NullPointerException
 
@@ -16,8 +14,12 @@ import java.lang.NullPointerException
 class TvFragment : Fragment() {
 
     private lateinit var tvBinding: FragmentTvBinding
+    private lateinit var tvAdapter: TvAdapter
     val viewModel by viewModel<TvShowViewModel>()
 
+    fun newInstance(): TvFragment {
+        return TvFragment()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,19 +34,24 @@ class TvFragment : Fragment() {
         if (activity != null){
             /*val factory = ViewModelFactory.getInstance(requireActivity())
             val viewModel = ViewModelProvider(this, factory)[TvShowViewModel::class.java]*/
+            tvAdapter = TvAdapter()
             try {
                 showLoading(true)
-                val tvShow = viewModel.getTvShow()
-                val tvAdapter = TvAdapter()
-                tvAdapter.setShow(tvShow)
+                viewModel.fetchTvShow()
+                viewModel.getTvShow().observe(viewLifecycleOwner, {tvShowList ->
+                    if (tvShowList!=null){
 
-                with(tvBinding.rvTvShow){
-                    layoutManager = LinearLayoutManager(context)
-                    setHasFixedSize(true)
-                    adapter = tvAdapter
-                }
-                showLoading(false)
-            } catch (e: NullPointerException){
+                        tvAdapter.setShow(tvShowList)
+
+                        with(tvBinding.rvTvShow){
+                            layoutManager = LinearLayoutManager(context)
+                            setHasFixedSize(true)
+                            adapter = tvAdapter
+                            showLoading(false)
+                        }
+                    }
+                })
+             } catch (e: NullPointerException){
                 showWarning(true)
             }
          }

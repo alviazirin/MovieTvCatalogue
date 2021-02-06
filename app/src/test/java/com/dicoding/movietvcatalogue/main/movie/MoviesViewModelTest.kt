@@ -10,12 +10,10 @@ import org.junit.Assert
 import org.junit.Test
 
 import org.junit.Assert.*
-import org.junit.Before
 import org.junit.Rule
 import org.koin.test.KoinTest
 import org.koin.test.KoinTestRule
 import org.koin.test.get
-import org.koin.test.mock.MockProvider
 import org.koin.test.mock.MockProviderRule
 import org.koin.test.mock.declareMock
 import org.mockito.Mockito
@@ -53,8 +51,8 @@ class MoviesViewModelTest : KoinTest {
     fun getMovie(){
         val mock = declareMock<MoviesViewModel>()
 
-        `when`(mock.getMoviesSimple()).thenReturn(DataDummy.generateDummyMovie())
-        val viewModel = mock.getMoviesSimple()
+        `when`(mock.fetchMovie()).thenReturn(DataDummy.generateDummyMovie())
+        val viewModel = mock.fetchMovie()
         assertNotNull(viewModel)
         assertEquals(19, viewModel.size)
 

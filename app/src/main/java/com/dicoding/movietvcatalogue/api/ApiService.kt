@@ -8,19 +8,21 @@ import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface ApiService {
-    @Headers("?api_key=8102939096862fe3acc4ca8ff7109131")
-    fun getMovie():Call<MovieResponse>
 
-    @Headers("?api_key=8102939096862fe3acc4ca8ff7109131")
-    fun getTvShow(): Call<TvShowResponse>
+    @GET("movie/upcoming")
+    fun getMovie(@Query("api_key") apikey:String = "8102939096862fe3acc4ca8ff7109131"):Call<MovieResponse>
 
-    @Headers("?api_key=8102939096862fe3acc4ca8ff7109131")
+    @GET("tv/popular")
+    fun getTvShow(@Query("api_key") apikey:String = "8102939096862fe3acc4ca8ff7109131"): Call<TvShowResponse>
+
+
     @GET("movie/{id}")
-    fun getDetailMovie(@Path("id") id: String): Call<MovieDetailResponse>
+    fun getDetailMovie(@Path("id") id: String, @Query("api_key") apikey:String = "8102939096862fe3acc4ca8ff7109131"): Call<MovieDetailResponse>
 
-    @Headers("?api_key=8102939096862fe3acc4ca8ff7109131")
+
     @GET("tv/{id}")
-    fun getDetailTvShow(@Path("id") id: String): Call<TvShowDetailResponse>
+    fun getDetailTvShow(@Path("id") id: String, @Query("api_key") apikey:String = "8102939096862fe3acc4ca8ff7109131"): Call<TvShowDetailResponse>
 }

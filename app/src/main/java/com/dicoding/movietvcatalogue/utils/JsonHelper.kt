@@ -21,6 +21,8 @@ class JsonHelper(private val context: Context) {
     private val basePosterUrl = "https://image.tmdb.org/t/p/original"
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
+    //lateinit var responseMov : MovieResponse
+
 
     companion object{
         const val TAG = "JsonHelper"
@@ -53,7 +55,6 @@ class JsonHelper(private val context: Context) {
                 val date = movie.getString("release_date")
                 val year = date.split("-").toTypedArray()
                 val posterPath = movie.getString("poster_path")
-                val poster = basePosterUrl+posterPath
 
                 val movieTvResponse = MovieTvResponse(id.toInt(),title, year[0], posterPath)
                 list.add(movieTvResponse)
@@ -77,7 +78,6 @@ class JsonHelper(private val context: Context) {
                 val date = tvShow.getString("first_air_date")
                 val year = date.split("-").toTypedArray()
                 val posterPath = tvShow.getString("poster_path")
-                val poster = basePosterUrl+posterPath
 
                 val movieTvResponse = MovieTvResponse(id.toInt(),title, year[0], posterPath)
                 list.add(movieTvResponse)
@@ -120,7 +120,7 @@ class JsonHelper(private val context: Context) {
                 val overview = responseObject.getString("overview")
                 val homepage = responseObject.getString("homepage")
                 val posterPath = responseObject.getString("poster_path")
-                val poster = basePosterUrl+posterPath
+
                 movieTvDetailResponse = MovieTvDetailResponse(id.toInt(),title,year[0],genre.joinToString(", "),productionCompanies.joinToString(", "),overview, homepage, posterPath)
             }
         } catch (e: JSONException){
@@ -161,8 +161,8 @@ class JsonHelper(private val context: Context) {
                 val overview = responseObject.getString("overview")
                 val homepage = responseObject.getString("homepage")
                 val posterPath = responseObject.getString("poster_path")
-                val poster = basePosterUrl+posterPath
-                movieTvDetailResponse = MovieTvDetailResponse(id.toInt(),title,year[0],genre.joinToString(", "),productionCompanies.joinToString(", "),overview, homepage, poster)
+
+                movieTvDetailResponse = MovieTvDetailResponse(id.toInt(),title,year[0],genre.joinToString(", "),productionCompanies.joinToString(", "),overview, homepage, posterPath)
             }
         } catch (e: JSONException){
             e.printStackTrace()
@@ -170,15 +170,18 @@ class JsonHelper(private val context: Context) {
         return movieTvDetailResponse as MovieTvDetailResponse
     }
 
-    fun loadMovieApi(): LiveData<List<ResultsMovieItem>>{
-        val movieListResult = MutableLiveData<List<ResultsMovieItem>>()
-        val responseMov = ArrayList<ResultsMovieItem>()
+    fun loadMovieApi()  {
+        /*val movies = MutableLiveData<ArrayList<ResultsMovieItem>>()
+        var movieResponse : ArrayList<ResultsMovieItem>? = ArrayList()
         val client = ApiConfig.getMovieService().getMovie()
         client.enqueue(object : Callback<MovieResponse>{
             override fun onResponse(call: Call<MovieResponse>, response: Response<MovieResponse>) {
                 _isLoading.value = false
                 if (response.isSuccessful){
-                    movieListResult.value = response.body()?.results
+                    movies.value = response.body()?.results
+                    val mov = response.body()?.results
+                    movieResponse = response.body()?.results
+                    Log.d("Json", movieResponse.toString())
 
                 }
             }
@@ -189,6 +192,6 @@ class JsonHelper(private val context: Context) {
             }
 
         })
-        return movieListResult
+        return movies*/
     }
 }

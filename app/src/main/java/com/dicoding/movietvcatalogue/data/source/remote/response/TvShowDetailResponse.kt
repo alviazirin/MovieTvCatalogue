@@ -4,29 +4,29 @@ import com.google.gson.annotations.SerializedName
 
 data class TvShowDetailResponse(
 
-	@field:SerializedName("first_air_date")
-	val firstAirDate: String,
-
-	@field:SerializedName("overview")
-	val overview: String,
-
-	@field:SerializedName("production_companies")
-	val productionCompanies: List<ProductionCompaniesItemTvShow>,
-
-	@field:SerializedName("genres")
-	val genres: List<GenresItemTvShow>,
+	@field:SerializedName("id")
+	val id: Int,
 
 	@field:SerializedName("name")
 	val name: String,
 
-	@field:SerializedName("id")
-	val id: Int,
+	@field:SerializedName("first_air_date")
+	val firstAirDate: String,
 
-	@field:SerializedName("poster_path")
-	val posterPath: String,
+	@field:SerializedName("genres")
+	val genres: ArrayList<GenresItemTvShow>,
+
+	@field:SerializedName("production_companies")
+	val productionCompanies: ArrayList<ProductionCompaniesItemTvShow>,
+
+	@field:SerializedName("overview")
+	val overview: String,
 
 	@field:SerializedName("homepage")
-	val homepage: String
+	val homepage: String,
+
+	@field:SerializedName("poster_path")
+	val posterPath: String
 )
 
 data class GenresItemTvShow(

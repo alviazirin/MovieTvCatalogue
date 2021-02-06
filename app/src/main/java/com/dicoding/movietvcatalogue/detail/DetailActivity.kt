@@ -4,13 +4,12 @@ package com.dicoding.movietvcatalogue.detail
 import android.content.Intent
 import android.content.Intent.EXTRA_TEXT
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.dicoding.movietvcatalogue.databinding.ActivityDetailActitvityBinding
 import com.dicoding.movietvcatalogue.entity.MovieTvDetailEntity
-import com.dicoding.movietvcatalogue.viewmodel.ViewModelFactory
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class DetailActivity : AppCompatActivity() {
@@ -35,12 +34,19 @@ class DetailActivity : AppCompatActivity() {
         if (extras != null){
             val id = extras.getInt(EXTRA_ID)
             val type = extras.getInt(TYPE)
+            showLoading(true)
             if (type == 1){
-                data = viewModel.getDetailMovie(id.toString())
+                viewModel.fetchDetailMovie(id.toString())
+                viewModel.getDetailMovie().observe(this,{ detailData ->
+                    fillDetail(detailData)
+                })
             } else {
-               data = viewModel.getDetailTvShow(id.toString())
+                viewModel.fetchDetailTvShow(id.toString())
+                viewModel.getDetailTvShow().observe(this, {detailData ->
+                    fillDetail(detailData)
+                })
             }
-            fillDetail(data)
+
         }
         detailActitvityBinding.fabShare.setOnClickListener {
             val sendIntent = Intent().apply {
@@ -65,6 +71,15 @@ class DetailActivity : AppCompatActivity() {
         detailActitvityBinding.tvCreatorDirector.text = showData.producer
         detailActitvityBinding.tvDescription.text = showData.overview
         detailActitvityBinding.tvUrl.text = showData.url
+        showLoading(false)
+    }
+
+    private fun showLoading(state: Boolean){
+        if (state){
+            detailActitvityBinding.progressBar.visibility = View.VISIBLE
+        } else {
+            detailActitvityBinding.progressBar.visibility = View.GONE
+        }
     }
 
 
