@@ -1,0 +1,185 @@
+			Testing Skenario
+
+////---------------Unit Test:--------------------///////////
+
+--------------  MovieTvRepositoryTest:  ------------------------
+ 
+* Memeriksa Dependency Injection pada repository:
+
+-> Memastikan depency yang diinjeksi dari RemoteDataSource tidak null
+
+-> Memastikan kelas repository mendapatkan depency tersebut (tidak null)
+------------
+
+* Memastikan fungsi loadMovie 
+
+-> meload movie dari API-dummy dan memastikan tidak null
+
+-> memastikan jumlah movie dari dummy sesuai dengan jumlah seharusnya
+
+-> memastikan observer livedata memperhatikan perubahan data
+---------
+
+* Memastikan fungsi loadTvShow 
+
+-> meload tvShow dari API-dummy dan memastikan tidak null
+
+-> memastikan jumlah tvShow dari dummy sesuai dengan jumlah seharusnya
+
+-> memastikan observer livedata memperhatikan perubahan data
+-------
+
+
+* Memastikan fungsi loadMovieDetail 
+
+-> meload movieDetail dari API-dummy dan memastikan tidak null
+
+-> memastikan data detail telah sesuai dengan yang diharapkan (title,date,genre,production,overview)
+
+-> memastikan observer livedata memperhatikan perubahan data
+--------
+
+
+* Memastikan fungsi loadTvShowDetail
+
+-> meload tvShowDetail dari API-dummy dan memastikan tidak null
+
+-> memastikan data detail telah sesuai dengan yang diharapkan (title,date,genre,production,overview)
+
+-> memastikan observer livedata memperhatikan perubahan data
+-----------
+
+
+
+-------------------------  DetailViewModelTest: -------------------
+
+* Memeriksa Dependency Injection
+
+-> Memastikan dependency injection dari Repository tidak null
+
+-> Memastikan kelas ViewModel menerima dependency injection (tidak null)
+-------------
+
+
+
+* Memeriksa fungsi getDetailMovie
+
+-> meload dataDetail dari dummy dan memastikan tidak null
+
+-> memastikan data yang diload telah sesuai dengan yang diharapkan (title,date,genre,production,overview)
+
+-> memastikan observer livedata memperhatikan perubahan data
+-----------
+
+
+
+* Memeriksa fungsi getDetailTvshow
+
+-> meload dataDetail dari dummy dan memastikan tidak null
+
+-> memastikan data yang diload telah sesuai dengan yang diharapkan (title,date,genre,production,overview)
+
+-> memastikan observer livedata memperhatikan perubahan data
+------------
+
+
+
+------------------------ MovieViewModelTest: ----------------------
+
+* Memeriksa Dependency Injection
+
+-> Memastikan dependency injection dari Repository tidak null
+
+-> Memastikan kelas ViewModel menerima dependency injection (tidak null)
+-------------
+
+
+
+* Memeriksa fungsi loadMovie
+
+-> meload movie data dari dummy dan memastikan tidak null
+
+-> memastikan jumlah data yang diload telah sesuai dengan seharusnya
+
+-> memastikan observer livedata memperhatikan perubahan data
+-------------
+
+
+
+* TestCase NullData
+
+-> mock load data dari dummy memberikan hasil null
+
+-> memastikan NullPointerException dilemparkan sebagai error
+----------
+
+
+
+----------------------- TvShowViewModelTest: -----------------------
+
+* Memeriksa Dependency Injection
+
+-> Memastikan dependency injection dari Repository tidak null
+
+-> Memastikan kelas ViewModel menerima dependency injection (tidak null)
+-----------
+
+
+
+* Memeriksa fungsi loadTvShow
+
+-> meload tvShow data dari dummy dan memastikan tidak null
+
+-> memastikan jumlah data yang diload telah sesuai dengan seharusnya
+
+-> memastikan observer livedata memperhatikan perubahan data
+---------
+
+
+
+
+////////-------------------- Instrumentation Test ----------------//////
+
+----------------------- Home Activity Test --------------------
+
+* MainActivity-FragmentMovie
+
+-> memastikan fragmentMovie menampilkan recyclerview dan memuat data
+
+-> melakukan scroll recylerview hingga data terakhir
+
+
+
+* MainActivity-FragmentTvshow
+
+-> memastikan fragmentTvShow menampilkan recyclerview dan memuat data
+
+-> melakukan scroll recylerview hingga data terakhir
+
+
+
+* MainActivity-FragmentMovie-Detail
+
+-> melakukan klik pada recyclerview data ke 1 dan memastikan textview title di DetailActivity muncul
+
+-> memastikan komponen textview untuk data telah muncul untuk masing-masing data (title, year, genre, director, description)
+
+-> memastikan data yang ditampilkan di textview telah sama dengan yang berada di sumberl untuk masing-masing textview (title, year, genre, director, description)
+
+
+
+* MainActivity-FragmentTvShow-Detail
+
+-> melakukan klik pada recyclerview data ke 1 dan memastikan textview title di DetailActivity muncul
+
+-> memastikan komponen textview untuk data telah muncul untuk masing-masing data (title, year, genre, director, description)
+
+-> memastikan data yang ditampilkan di textview telah sama dengan yang berada di sumberl untuk masing-masing textview (title, year, genre, director, description)
+
+
+
+* MainActivity-Fragment-Detail-ShareButton
+
+-> memastikan button fab share tampil
+
+-> memastikan button fab dapat di klik
