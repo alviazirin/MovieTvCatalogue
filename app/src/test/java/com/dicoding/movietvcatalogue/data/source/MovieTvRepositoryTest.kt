@@ -75,6 +75,7 @@ class MovieTvRepositoryTest : KoinTest {
         val mock = declareMock<RemoteDataSource>()
         `when`(mock.loadMovieApi()).thenReturn(movieResponse)
         val loadMovie = mock.loadMovieApi()
+
         assertNotNull(loadMovie)
         assertEquals(7, loadMovie.value?.size)
 
@@ -90,6 +91,7 @@ class MovieTvRepositoryTest : KoinTest {
         val mock = declareMock<RemoteDataSource>()
         `when`(mock.loadTvShowApi()).thenReturn(tvShowResponse)
         val loadTvShow = mock.loadTvShowApi()
+
         assertNotNull(loadTvShow)
         assertEquals(7, loadTvShow.value?.size)
 
@@ -107,7 +109,9 @@ class MovieTvRepositoryTest : KoinTest {
         val loadDetail = mock.loadMovieDetailApi("1")
         val dataExpected = dataDetail.value
         val dataActual = loadDetail.value
+
         assertNotNull(loadDetail)
+
         assertEquals(dataExpected?.id, dataActual?.id)
         assertEquals(dataExpected?.title, dataActual?.title)
         assertEquals(dataExpected?.releaseDate, dataActual?.releaseDate)
@@ -129,7 +133,9 @@ class MovieTvRepositoryTest : KoinTest {
         val mock = declareMock<RemoteDataSource>()
         `when`(mock.loadTvShowDetailApi("20")).thenReturn(dataDetail)
         val loadDetail = mock.loadTvShowDetailApi("20")
+
         assertNotNull(loadDetail)
+
         val dataExpected = dataDetail.value
         val dataActual = loadDetail.value
         assertEquals(dataExpected?.id, dataActual?.id)

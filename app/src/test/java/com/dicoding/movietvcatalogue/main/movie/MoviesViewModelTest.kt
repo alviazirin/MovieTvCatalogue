@@ -80,7 +80,7 @@ class MoviesViewModelTest : KoinTest {
     fun getNullData() {
         try {
             val mock = declareMock<MoviesViewModel>()
-            //val viewModel = mock.getNull()
+
             mock.getNull()
 
         } catch (e: NullPointerException) {
