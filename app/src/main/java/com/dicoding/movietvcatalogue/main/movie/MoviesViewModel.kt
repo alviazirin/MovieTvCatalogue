@@ -11,12 +11,12 @@ import com.dicoding.movietvcatalogue.utils.DataDummy
 
 class MoviesViewModel(private val movieTvRepository: MovieTvRepository) : ViewModel() {
     private val _moviesData = MutableLiveData<ArrayList<MovieTVEntity>>()
-    val moviesData: LiveData<ArrayList<MovieTVEntity>> = _moviesData
+    private val moviesData: LiveData<ArrayList<MovieTVEntity>> = _moviesData
     fun fetchMovie(): LiveData<ArrayList<MovieTVEntity>> {
         val movieList = ArrayList<MovieTVEntity>()
 
-        movieTvRepository.loadMovieApi().observeForever(Observer{movies ->
-            for (movie in movies){
+        movieTvRepository.loadMovieApi().observeForever(Observer { movies ->
+            for (movie in movies) {
                 val mov = MovieTVEntity(movie.id, movie.title, movie.date, movie.poster)
 
                 movieList.add(mov)
@@ -25,9 +25,10 @@ class MoviesViewModel(private val movieTvRepository: MovieTvRepository) : ViewMo
         })
         return moviesData
     }
+
     fun getMovie(): LiveData<ArrayList<MovieTVEntity>> {
         return moviesData
     }
-    //fun getMovies(): List<MovieTvDetailEntity> = DataDummy.generateDummyDetailMovie()
+
     fun getNull(): List<MovieTvDetailEntity> = DataDummy.generateNullTest()
 }

@@ -13,10 +13,10 @@ import com.dicoding.movietvcatalogue.di.appModule
 import com.dicoding.movietvcatalogue.di.viewModelModule
 import com.dicoding.movietvcatalogue.utils.DataDummy
 import com.nhaarman.mockitokotlin2.verify
-import org.junit.Test
-
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotNull
 import org.junit.Rule
+import org.junit.Test
 import org.junit.runner.RunWith
 import org.koin.test.KoinTest
 import org.koin.test.KoinTestRule
@@ -59,7 +59,7 @@ class MovieTvRepositoryTest : KoinTest {
     private lateinit var observerDetailTvShow: Observer<TvShowDetailResponse>
 
     @Test
-    fun checkInjection(){
+    fun checkInjection() {
         val mock = declareMock<RemoteDataSource>()
 
         assertNotNull(get<RemoteDataSource>())
@@ -76,7 +76,7 @@ class MovieTvRepositoryTest : KoinTest {
         `when`(mock.loadMovieApi()).thenReturn(movieResponse)
         val loadMovie = mock.loadMovieApi()
         assertNotNull(loadMovie)
-        assertEquals(7,loadMovie.value?.size)
+        assertEquals(7, loadMovie.value?.size)
 
         loadMovie.observeForever(observerMovie)
         verify(observerMovie).onChanged(dataDummy)

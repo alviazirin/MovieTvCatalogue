@@ -9,25 +9,25 @@ import com.bumptech.glide.request.RequestOptions
 import com.dicoding.movietvcatalogue.databinding.ItemTvshowsBinding
 import com.dicoding.movietvcatalogue.detail.DetailActivity
 import com.dicoding.movietvcatalogue.entity.MovieTVEntity
-import com.dicoding.movietvcatalogue.entity.MovieTvDetailEntity
 
 class TvAdapter : RecyclerView.Adapter<TvAdapter.TvShowViewHolder>() {
 
     private val listTvShow = ArrayList<MovieTVEntity>()
 
-    fun setShow(tvShow: List<MovieTVEntity>?){
+    fun setShow(tvShow: List<MovieTVEntity>?) {
         if (tvShow == null)
             return
         this.listTvShow.clear()
         this.listTvShow.addAll(tvShow)
     }
 
-    class TvShowViewHolder(private val binding: ItemTvshowsBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(tvShow: MovieTVEntity){
-            with(binding){
+    class TvShowViewHolder(private val binding: ItemTvshowsBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(tvShow: MovieTVEntity) {
+            with(binding) {
                 Glide.with(itemView.context)
                     .load(tvShow.poster)
-                    .apply(RequestOptions().override(130,144))
+                    .apply(RequestOptions().override(130, 144))
                     .into(ivPoster)
 
                 tvTitle.text = tvShow.title
@@ -44,7 +44,8 @@ class TvAdapter : RecyclerView.Adapter<TvAdapter.TvShowViewHolder>() {
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TvShowViewHolder {
-        val itemTvshowsBinding = ItemTvshowsBinding.inflate(LayoutInflater.from(parent.context),parent,false)
+        val itemTvshowsBinding =
+            ItemTvshowsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return TvShowViewHolder(itemTvshowsBinding)
     }
 

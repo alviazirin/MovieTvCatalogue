@@ -7,17 +7,8 @@ import com.dicoding.movietvcatalogue.data.source.remote.RemoteDataSource
 import com.dicoding.movietvcatalogue.entity.MovieTVEntity
 import com.dicoding.movietvcatalogue.entity.MovieTvDetailEntity
 
-class MovieTvRepository(private val remoteDataSource: RemoteDataSource): MovieTvDataSource {
+class MovieTvRepository(private val remoteDataSource: RemoteDataSource) : MovieTvDataSource {
 
-    companion object{
-        @Volatile
-        private var instance: MovieTvRepository? = null
-
-        fun getInstance(remoteDataSource: RemoteDataSource): MovieTvRepository =
-            instance ?: synchronized(this){
-                instance ?: MovieTvRepository(remoteDataSource)
-            }
-    }
 
     private val basePosterUrl = "https://image.tmdb.org/t/p/original"
     private val _movieData = MutableLiveData<ArrayList<MovieTVEntity>>()
@@ -25,85 +16,19 @@ class MovieTvRepository(private val remoteDataSource: RemoteDataSource): MovieTv
     private val _movieDetailData = MutableLiveData<MovieTvDetailEntity>()
     private val _tvShowDetailData = MutableLiveData<MovieTvDetailEntity>()
 
-    override fun loadMovie(): List<MovieTVEntity> {
-        val movieResponse = remoteDataSource.loadMovie()
-        val movieList = ArrayList<MovieTVEntity>()
-        for (movie in movieResponse){
-            val movies = MovieTVEntity(movie.id,
-            movie.title,
-            movie.date,
-            basePosterUrl+movie.poster)
-
-            movieList.add(movies)
-        }
-        return movieList
-    }
-
-    override fun loadTvShow(): List<MovieTVEntity> {
-        val tvResponse = remoteDataSource.loadTvShow()
-        val tvShowList = ArrayList<MovieTVEntity>()
-        for (tvShows in tvResponse){
-            val tvShow = MovieTVEntity(tvShows.id,tvShows.title, tvShows.date, basePosterUrl+tvShows.poster)
-
-            tvShowList.add(tvShow)
-        }
-        return tvShowList
-    }
-
-    override fun loadDetailMovie(movieId: String): MovieTvDetailEntity {
-        val detailMovie = remoteDataSource.loadDetailMovie(movieId)
-        lateinit var movieTvDetailEntity: MovieTvDetailEntity
-        movieTvDetailEntity = MovieTvDetailEntity(
-            detailMovie.id,
-            detailMovie.title,
-            detailMovie.date,
-            detailMovie.genre,
-            detailMovie.productionCompanies,
-            detailMovie.overview,
-            detailMovie.homepage,
-            basePosterUrl+detailMovie.poster
-        )
-        /*movieTvDetailEntity.id = detailMovie.id
-        movieTvDetailEntity.title = detailMovie.title
-        movieTvDetailEntity.year = detailMovie.date
-        movieTvDetailEntity.genre = detailMovie.genre
-        movieTvDetailEntity.overview = detailMovie.overview
-        movieTvDetailEntity.producer = detailMovie.productionCompanies
-        movieTvDetailEntity.url = detailMovie.homepage
-        movieTvDetailEntity.poster = detailMovie.poster*/
-
-        return movieTvDetailEntity
-    }
-
-    override fun loadDetailTvShow(tvShowId: String): MovieTvDetailEntity {
-        val detailTvShow = remoteDataSource.loadDetailTvShow(tvShowId)
-        lateinit var movieTvDetailEntity: MovieTvDetailEntity
-        movieTvDetailEntity = MovieTvDetailEntity(
-            detailTvShow.id,
-            detailTvShow.title,
-            detailTvShow.date,
-            detailTvShow.genre,
-            detailTvShow.productionCompanies,
-            detailTvShow.overview,
-            detailTvShow.homepage,
-            basePosterUrl+detailTvShow.poster
-        )
-
-        return movieTvDetailEntity
-    }
 
     override fun loadMovieApi(): LiveData<ArrayList<MovieTVEntity>> {
         val movieList = ArrayList<MovieTVEntity>()
         val movieData: LiveData<ArrayList<MovieTVEntity>> = _movieData
 
 
-        remoteDataSource.loadMovieApi().observeForever(Observer{ movies ->
-            for (movie in movies){
+        remoteDataSource.loadMovieApi().observeForever(Observer { movies ->
+            for (movie in movies) {
                 val id = movie.id
                 val title = movie.title
                 val year = movie.releaseDate.split("-").toTypedArray()
                 val date = year[0]
-                val poster = basePosterUrl+movie.posterPath
+                val poster = basePosterUrl + movie.posterPath
 
                 val mov = MovieTVEntity(id, title, date, poster)
 
@@ -114,17 +39,17 @@ class MovieTvRepository(private val remoteDataSource: RemoteDataSource): MovieTv
         return movieData
     }
 
-    override fun loadTvShowApi(): LiveData<ArrayList<MovieTVEntity>>{
+    override fun loadTvShowApi(): LiveData<ArrayList<MovieTVEntity>> {
         val tvShowList = ArrayList<MovieTVEntity>()
         val tvShowData: LiveData<ArrayList<MovieTVEntity>> = _tvShowData
 
-        remoteDataSource.loadTvShowApi().observeForever(Observer{ tvShows ->
-            for (tvShow in tvShows){
+        remoteDataSource.loadTvShowApi().observeForever(Observer { tvShows ->
+            for (tvShow in tvShows) {
                 val id = tvShow.id
                 val title = tvShow.name
                 val year = tvShow.firstAirDate.split("-").toTypedArray()
                 val date = year[0]
-                val poster = basePosterUrl+tvShow.posterPath
+                val poster = basePosterUrl + tvShow.posterPath
 
                 val show = MovieTVEntity(id, title, date, poster)
 
@@ -136,7 +61,7 @@ class MovieTvRepository(private val remoteDataSource: RemoteDataSource): MovieTv
     }
 
     override fun loadDetailMovieApi(movieId: String): LiveData<MovieTvDetailEntity> {
-       val movieDetailData: LiveData<MovieTvDetailEntity> = _movieDetailData
+        val movieDetailData: LiveData<MovieTvDetailEntity> = _movieDetailData
 
         remoteDataSource.loadMovieDetailApi(movieId).observeForever(Observer { movieDetail ->
             val id = movieDetail.id
@@ -145,7 +70,7 @@ class MovieTvRepository(private val remoteDataSource: RemoteDataSource): MovieTv
             val year = date[0]
             val listGenre = movieDetail.genres
             val genreNames = ArrayList<String>()
-            for (genre in listGenre){
+            for (genre in listGenre) {
                 val genreName = genre.name
 
                 genreNames.add(genreName)
@@ -153,7 +78,7 @@ class MovieTvRepository(private val remoteDataSource: RemoteDataSource): MovieTv
             val genres = genreNames.joinToString(", ")
             val listComp = movieDetail.productionCompanies
             val compNames = ArrayList<String>()
-            for (company in listComp){
+            for (company in listComp) {
                 val compName = company.name
 
                 compNames.add(compName)
@@ -161,9 +86,10 @@ class MovieTvRepository(private val remoteDataSource: RemoteDataSource): MovieTv
             val producer = compNames.joinToString(", ")
             val overview = movieDetail.overview
             val url = movieDetail.homepage
-            val poster = basePosterUrl+movieDetail.posterPath
+            val poster = basePosterUrl + movieDetail.posterPath
 
-            _movieDetailData.value = MovieTvDetailEntity(id, title, year, genres, producer, overview, url, poster)
+            _movieDetailData.value =
+                MovieTvDetailEntity(id, title, year, genres, producer, overview, url, poster)
         })
         return movieDetailData
     }
@@ -178,7 +104,7 @@ class MovieTvRepository(private val remoteDataSource: RemoteDataSource): MovieTv
             val year = date[0]
             val listGenre = showsDetail.genres
             val genreNames = ArrayList<String>()
-            for (genre in listGenre){
+            for (genre in listGenre) {
                 val genreName = genre.name
 
                 genreNames.add(genreName)
@@ -186,7 +112,7 @@ class MovieTvRepository(private val remoteDataSource: RemoteDataSource): MovieTv
             val genre = genreNames.joinToString(", ")
             val listComp = showsDetail.productionCompanies
             val compNames = ArrayList<String>()
-            for (company in listComp){
+            for (company in listComp) {
                 val compName = company.name
 
                 compNames.add(compName)
@@ -194,9 +120,10 @@ class MovieTvRepository(private val remoteDataSource: RemoteDataSource): MovieTv
             val producer = compNames.joinToString(", ")
             val overview = showsDetail.overview
             val url = showsDetail.homepage
-            val poster = basePosterUrl+showsDetail.posterPath
+            val poster = basePosterUrl + showsDetail.posterPath
 
-            _tvShowDetailData.value = MovieTvDetailEntity(id, title, year, genre, producer, overview, url, poster)
+            _tvShowDetailData.value =
+                MovieTvDetailEntity(id, title, year, genre, producer, overview, url, poster)
         })
         return tvShowDetailData
     }

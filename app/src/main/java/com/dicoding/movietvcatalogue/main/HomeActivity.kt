@@ -7,7 +7,7 @@ import com.dicoding.movietvcatalogue.databinding.ActivityMainBinding
 
 class HomeActivity : AppCompatActivity() {
 
-private lateinit var mainBinding: ActivityMainBinding
+    private lateinit var mainBinding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

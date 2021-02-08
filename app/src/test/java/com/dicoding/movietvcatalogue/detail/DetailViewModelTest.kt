@@ -10,10 +10,10 @@ import com.dicoding.movietvcatalogue.di.viewModelModule
 import com.dicoding.movietvcatalogue.entity.MovieTvDetailEntity
 import com.dicoding.movietvcatalogue.utils.DataDummy
 import com.nhaarman.mockitokotlin2.verify
-import org.junit.Test
-
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotNull
 import org.junit.Rule
+import org.junit.Test
 import org.junit.runner.RunWith
 import org.koin.test.KoinTest
 import org.koin.test.KoinTestRule
@@ -49,18 +49,18 @@ class DetailViewModelTest : KoinTest {
     private lateinit var observer: Observer<MovieTvDetailEntity>
 
     @Test
-    fun checkInjection(){
+    fun checkInjection() {
 
-            val mock = declareMock<MovieTvRepository>()
+        val mock = declareMock<MovieTvRepository>()
 
-            assertNotNull(get<MovieTvRepository>())
+        assertNotNull(get<MovieTvRepository>())
 
-            assertNotNull(get<DetailViewModel>())
+        assertNotNull(get<DetailViewModel>())
 
     }
 
     @Test
-    fun getDetailMovie(){
+    fun getDetailMovie() {
         val dataDummyDetail = DataDummy.generateDetail("1")
         val dataDetail = MutableLiveData<MovieTvDetailEntity>()
         dataDetail.value = dataDummyDetail
@@ -88,7 +88,7 @@ class DetailViewModelTest : KoinTest {
     }
 
     @Test
-    fun getDetailTvShow(){
+    fun getDetailTvShow() {
         val dataDummyDetail = DataDummy.generateDetail("20")
         val dataDetail = MutableLiveData<MovieTvDetailEntity>()
         dataDetail.value = dataDummyDetail

@@ -12,15 +12,14 @@ import com.dicoding.movietvcatalogue.entity.MovieTVEntity
 import com.dicoding.movietvcatalogue.utils.DataDummy
 import com.nhaarman.mockitokotlin2.verify
 import org.junit.Assert
-import org.junit.Test
-
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotNull
 import org.junit.Rule
+import org.junit.Test
 import org.junit.runner.RunWith
 import org.koin.test.KoinTest
 import org.koin.test.KoinTestRule
 import org.koin.test.get
-import org.koin.test.inject
 import org.koin.test.mock.MockProviderRule
 import org.koin.test.mock.declareMock
 import org.mockito.Mock
@@ -49,7 +48,6 @@ class MoviesViewModelTest : KoinTest {
     private lateinit var observer: Observer<ArrayList<MovieTVEntity>>
 
 
-
     @Test
     fun checkInjection() {
 
@@ -61,7 +59,7 @@ class MoviesViewModelTest : KoinTest {
     }
 
     @Test
-    fun getMovie(){
+    fun getMovie() {
         val mock = declareMock<MoviesViewModel>()
         val dummyMovie = DataDummy.generateDummyMovie()
         val movies = MutableLiveData<ArrayList<MovieTVEntity>>()
@@ -79,13 +77,13 @@ class MoviesViewModelTest : KoinTest {
 
 
     @Test
-    fun getNullData(){
+    fun getNullData() {
         try {
             val mock = declareMock<MoviesViewModel>()
             //val viewModel = mock.getNull()
             mock.getNull()
 
-        } catch (e: NullPointerException){
+        } catch (e: NullPointerException) {
             Assert.fail("Throw Null Exception")
         }
     }

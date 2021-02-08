@@ -10,10 +10,10 @@ import com.dicoding.movietvcatalogue.di.viewModelModule
 import com.dicoding.movietvcatalogue.entity.MovieTVEntity
 import com.dicoding.movietvcatalogue.utils.DataDummy
 import com.nhaarman.mockitokotlin2.verify
-import org.junit.Test
-
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotNull
 import org.junit.Rule
+import org.junit.Test
 import org.junit.runner.RunWith
 import org.koin.test.KoinTest
 import org.koin.test.KoinTestRule
@@ -46,7 +46,6 @@ class TvShowViewModelTest : KoinTest {
     private lateinit var observer: Observer<ArrayList<MovieTVEntity>>
 
 
-
     @Test
     fun checkInjection() {
         val mock = declareMock<MovieTvRepository>()
@@ -57,7 +56,7 @@ class TvShowViewModelTest : KoinTest {
     }
 
     @Test
-    fun getTvShow(){
+    fun getTvShow() {
         val mock = declareMock<TvShowViewModel>()
         val dummyShow = DataDummy.generateDummyTvShow()
         val tvShow = MutableLiveData<ArrayList<MovieTVEntity>>()
