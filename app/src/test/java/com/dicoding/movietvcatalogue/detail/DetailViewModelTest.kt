@@ -1,27 +1,38 @@
 package com.dicoding.movietvcatalogue.detail
 
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import com.dicoding.movietvcatalogue.data.source.MovieTvRepository
 import com.dicoding.movietvcatalogue.di.BaseApplication
 import com.dicoding.movietvcatalogue.di.appModule
 import com.dicoding.movietvcatalogue.di.viewModelModule
+import com.dicoding.movietvcatalogue.entity.MovieTvDetailEntity
 import com.dicoding.movietvcatalogue.utils.DataDummy
+import com.nhaarman.mockitokotlin2.verify
 import org.junit.Test
 
 import org.junit.Assert.*
 import org.junit.Rule
+import org.junit.runner.RunWith
 import org.koin.test.KoinTest
 import org.koin.test.KoinTestRule
 import org.koin.test.get
 import org.koin.test.mock.MockProviderRule
 import org.koin.test.mock.declareMock
+import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.Mockito.`when`
+import org.mockito.junit.MockitoJUnitRunner
 
+@RunWith(MockitoJUnitRunner::class)
 class DetailViewModelTest : KoinTest {
 
     private val dummyMovieId = 1
     private val dummyTvId = 20
 
+    @get:Rule
+    var instantTaskExecutorRule = InstantTaskExecutorRule()
 
     @get:Rule
     val koinTestRule = KoinTestRule.create {
@@ -33,6 +44,9 @@ class DetailViewModelTest : KoinTest {
     val mockProvider = MockProviderRule.create { clazz ->
         Mockito.mock(clazz.java)
     }
+
+    @Mock
+    private lateinit var observer: Observer<MovieTvDetailEntity>
 
     @Test
     fun checkInjection(){
@@ -47,36 +61,58 @@ class DetailViewModelTest : KoinTest {
 
     @Test
     fun getDetailMovie(){
-        val dataDetail = DataDummy.generateDetail("1")
+        val dataDummyDetail = DataDummy.generateDetail("1")
+        val dataDetail = MutableLiveData<MovieTvDetailEntity>()
+        dataDetail.value = dataDummyDetail
+
         val mock = declareMock<DetailViewModel>()
-        `when`(mock.fetchDetailMovie("1")).thenReturn(DataDummy.generateDetail("1"))
-        val data = mock.fetchDetailMovie("1")
+        `when`(mock.getDetailMovie()).thenReturn(dataDetail)
+        mock.fetchDetailMovie("1")
+
+        val data = mock.getDetailMovie()
         assertNotNull(data)
-        assertEquals(dummyMovieId, data.id)
-        assertEquals(dataDetail.title, data.title)
-        assertEquals(dataDetail.year, data.year)
-        assertEquals(dataDetail.genre, data.genre)
-        assertEquals(dataDetail.producer, data.producer)
-        assertEquals(dataDetail.overview, data.overview)
-        assertEquals(dataDetail.poster, data.poster)
-        assertEquals(dataDetail.url, data.url)
+
+        val dataExpected = dataDetail.value
+        val dataActual = data.value
+        assertEquals(dummyMovieId, dataActual?.id)
+        assertEquals(dataExpected?.title, dataActual?.title)
+        assertEquals(dataExpected?.year, dataActual?.year)
+        assertEquals(dataExpected?.genre, dataActual?.genre)
+        assertEquals(dataExpected?.producer, dataActual?.producer)
+        assertEquals(dataExpected?.overview, dataActual?.overview)
+        assertEquals(dataExpected?.poster, dataActual?.poster)
+        assertEquals(dataExpected?.url, dataActual?.url)
+
+        data.observeForever(observer)
+        verify(observer).onChanged(dataDummyDetail)
     }
 
     @Test
     fun getDetailTvShow(){
-        val dataDetail = DataDummy.generateDetail("20")
+        val dataDummyDetail = DataDummy.generateDetail("20")
+        val dataDetail = MutableLiveData<MovieTvDetailEntity>()
+        dataDetail.value = dataDummyDetail
+
         val mock = declareMock<DetailViewModel>()
-        `when`(mock.fetchDetailTvShow("20")).thenReturn(DataDummy.generateDetail("20"))
-        val data = mock.fetchDetailTvShow("20")
+        `when`(mock.getDetailTvShow()).thenReturn(dataDetail)
+        mock.fetchDetailMovie("20")
+
+        val data = mock.getDetailTvShow()
         assertNotNull(data)
-        assertEquals(dummyTvId, data.id)
-        assertEquals(dataDetail.title, data.title)
-        assertEquals(dataDetail.year, data.year)
-        assertEquals(dataDetail.genre, data.genre)
-        assertEquals(dataDetail.producer, data.producer)
-        assertEquals(dataDetail.overview, data.overview)
-        assertEquals(dataDetail.poster, data.poster)
-        assertEquals(dataDetail.url, data.url)
+
+        val dataExpected = dataDetail.value
+        val dataActual = data.value
+        assertEquals(dummyTvId, dataActual?.id)
+        assertEquals(dataExpected?.title, dataActual?.title)
+        assertEquals(dataExpected?.year, dataActual?.year)
+        assertEquals(dataExpected?.genre, dataActual?.genre)
+        assertEquals(dataExpected?.producer, dataActual?.producer)
+        assertEquals(dataExpected?.overview, dataActual?.overview)
+        assertEquals(dataExpected?.poster, dataActual?.poster)
+        assertEquals(dataExpected?.url, dataActual?.url)
+
+        data.observeForever(observer)
+        verify(observer).onChanged(dataDummyDetail)
     }
 
 

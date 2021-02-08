@@ -1,8 +1,9 @@
 package com.dicoding.movietvcatalogue.utils
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.dicoding.movietvcatalogue.R
-import com.dicoding.movietvcatalogue.data.source.remote.response.MovieTvDetailResponse
-import com.dicoding.movietvcatalogue.data.source.remote.response.MovieTvResponse
+import com.dicoding.movietvcatalogue.data.source.remote.response.*
 import com.dicoding.movietvcatalogue.entity.MovieTVEntity
 import com.dicoding.movietvcatalogue.entity.MovieTvDetailEntity
 
@@ -882,20 +883,87 @@ object DataDummy {
         return showDetail
     }
 
-    /*fun getDetail(type: Int, id: Int): MovieTvDetailEntity {
+    fun generateMovieApi(): ArrayList<ResultsMovieItem> {
+        val movieItem = ArrayList<ResultsMovieItem>()
+        val movies = MutableLiveData<ArrayList<ResultsMovieItem>>()
+        movieItem.add(ResultsMovieItem(1,"Avengers: Endgame","2019","https://image.tmdb.org/t/p/original/ulzhLuWrPK07P1YkdWQLZnQh1JL.jpg"))
+        movieItem.add(ResultsMovieItem(2,"A Star is Born","2018","https://image.tmdb.org/t/p/original/wrFpXMNBRj2PBiN4Z5kix51XaIZ.jpg"))
+        movieItem.add(ResultsMovieItem(3,"Alita: Battle Angel","2019","https://image.tmdb.org/t/p/original/xRWht48C2V8XNfzvPehyClOvDni.jpg"))
+        movieItem.add(ResultsMovieItem(4,"Aquaman","2018","https://image.tmdb.org/t/p/original/5Kg76ldv7VxeX9YlcQXiowHgdX6.jpg"))
+        movieItem.add(ResultsMovieItem(5,"Bohemian Rhapsody","2018","https://image.tmdb.org/t/p/original/lHu1wtNaczFPGFDTrjCSzeLPTKN.jpg"))
+        movieItem.add(ResultsMovieItem(6,"Cold Pursuit","2019","https://image.tmdb.org/t/p/original/hXgmWPd1SuujRZ4QnKLzrj79PAw.jpg"))
+        movieItem.add(ResultsMovieItem(7,"Creed II","2018","https://image.tmdb.org/t/p/original/v3QyboWRoA4O9RbcsqH8tJMe8EB.jpg"))
 
-        if (type == 1){
-            dataAll = generateDummyDetailMovie()
-        } else {
-            dataAll = generateDummyDetailTVShow()
-        }
-        for (data in dataAll){
-            if (data.id == id){
-                detailData = data
+        movies.value = movieItem
+        return movieItem
+    }
+
+    fun generateTvShowApi(): ArrayList<ResultsTvShowItem> {
+        val tvShowItem = ArrayList<ResultsTvShowItem>()
+        val shows = MutableLiveData<ArrayList<ResultsTvShowItem>>()
+
+        tvShowItem.add(ResultsTvShowItem(20,"Arrow","2012","https://image.tmdb.org/t/p/original/gKG5QGz5Ngf8fgWpBsWtlg5L2SF.jpg"))
+        tvShowItem.add(ResultsTvShowItem(21,"Doom Patrol","2019","https://image.tmdb.org/t/p/original/drlfSCIlMKrEeMPhi8pqY4xGxj.jpg"))
+        tvShowItem.add(ResultsTvShowItem(22,"Dragon Ball","1996","https://image.tmdb.org/t/p/original/tZ0jXOeYBWPZ0OWzUhTlYvMF7YR.jpg"))
+        tvShowItem.add(ResultsTvShowItem(23,"Fairy Tail","2009","https://image.tmdb.org/t/p/original/1T6XCwWpmg1B4jrzAlcFCnJGQVD.jpg"))
+        tvShowItem.add(ResultsTvShowItem(24,"The Flash","2014","https://image.tmdb.org/t/p/original/wHa6KOJAoNTFLFtp7wguUJKSnju.jpg"))
+        tvShowItem.add(ResultsTvShowItem(25,"Game of Thrones","2011","https://image.tmdb.org/t/p/original/u3bZgnGQ9T01sWNhyveQz0wH0Hl.jpg"))
+        tvShowItem.add(ResultsTvShowItem(26,"Gotham","2014","https://image.tmdb.org/t/p/original/4XddcRDtnNjYmLRMYpbrhFxsbuq.jpg"))
+
+        shows.value = tvShowItem
+        return tvShowItem
+    }
+
+    fun generateMovieDetailApi(movieId: String): MovieDetailResponse {
+        val movieDetail = ArrayList<MovieDetailResponse>()
+        lateinit var detail: MovieDetailResponse
+        val movie = MutableLiveData<MovieDetailResponse>()
+
+        movieDetail.add(MovieDetailResponse(1,
+            "Avengers: Endgame",
+            "2019",
+            arrayListOf(GenresItemMovie("Adventure"),
+                        GenresItemMovie("Science Fiction"),
+                        GenresItemMovie("Action")),
+            arrayListOf(ProductionCompaniesItemMovie("Anthony Russo")),
+            "After the devastating events of Avengers: Infinity War, the universe is in ruins due to the efforts of the Mad Titan, Thanos. With the help of remaining allies, the Avengers must assemble once more in order to undo Thanos' actions and restore order to the universe once and for all, no matter what consequences may be in store.",
+            "https://www.themoviedb.org/movie/299536-avengers-infinity-war",
+            "https://image.tmdb.org/t/p/original/ulzhLuWrPK07P1YkdWQLZnQh1JL.jpg"))
+
+
+        for (movie in movieDetail){
+            if (movie.id.toString() == movieId){
+                detail = movie
             }
         }
-        return detailData
-    }*/
+        movie.value = detail
+        return detail
+    }
+
+    fun generateTvDetailApi(tvShowId: String): TvShowDetailResponse {
+        val tvShowDetail = ArrayList<TvShowDetailResponse>()
+        lateinit var detail: TvShowDetailResponse
+        val show = MutableLiveData<TvShowDetailResponse>()
+
+        tvShowDetail.add(TvShowDetailResponse(20,
+            "Arrow",
+            "2012",
+            arrayListOf(GenresItemTvShow("Crime"),
+                GenresItemTvShow(" Drama"),
+                GenresItemTvShow("Mystery")),
+            arrayListOf(ProductionCompaniesItemTvShow("Greg Berlanti")),
+            "Spoiled billionaire playboy Oliver Queen is missing and presumed dead when his yacht is lost at sea. He returns five years later a changed man, determined to clean up the city as a hooded vigilante armed with a bow.",
+            "https://www.themoviedb.org/tv/1412-arrow",
+            "https://image.tmdb.org/t/p/original/gKG5QGz5Ngf8fgWpBsWtlg5L2SF.jpg"))
+
+        for (show in tvShowDetail){
+            if (show.id.toString() == tvShowId){
+                detail = show
+            }
+        }
+        show.value = detail
+        return detail
+    }
 
     fun generateNullTest(): ArrayList<MovieTvDetailEntity>{
         val itemNull = ArrayList<MovieTvDetailEntity>()

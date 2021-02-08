@@ -1,28 +1,39 @@
 package com.dicoding.movietvcatalogue.data.source
 
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import com.dicoding.movietvcatalogue.data.source.remote.RemoteDataSource
+import com.dicoding.movietvcatalogue.data.source.remote.response.MovieDetailResponse
+import com.dicoding.movietvcatalogue.data.source.remote.response.ResultsMovieItem
+import com.dicoding.movietvcatalogue.data.source.remote.response.ResultsTvShowItem
+import com.dicoding.movietvcatalogue.data.source.remote.response.TvShowDetailResponse
 import com.dicoding.movietvcatalogue.di.BaseApplication
 import com.dicoding.movietvcatalogue.di.appModule
 import com.dicoding.movietvcatalogue.di.viewModelModule
 import com.dicoding.movietvcatalogue.utils.DataDummy
+import com.nhaarman.mockitokotlin2.verify
 import org.junit.Test
 
 import org.junit.Assert.*
 import org.junit.Rule
+import org.junit.runner.RunWith
 import org.koin.test.KoinTest
 import org.koin.test.KoinTestRule
 import org.koin.test.get
 import org.koin.test.mock.MockProviderRule
 import org.koin.test.mock.declareMock
+import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.Mockito.`when`
+import org.mockito.junit.MockitoJUnitRunner
 
+@RunWith(MockitoJUnitRunner::class)
 class MovieTvRepositoryTest : KoinTest {
 
-    private val movieResponse = DataDummy.generateRemoteSourceMovie()
-    private val tvShowResponse = DataDummy.generateRemoteSourceTvShow()
-    private val movieDetailResponse = DataDummy.generateRemoteSourceDetail("1")
-    private val tvDetailResponse = DataDummy.generateRemoteSourceDetail("20")
+
+    @get:Rule
+    var instantTaskExecutorRule = InstantTaskExecutorRule()
 
     @get:Rule
     val koinTestRule = KoinTestRule.create {
@@ -35,6 +46,18 @@ class MovieTvRepositoryTest : KoinTest {
         Mockito.mock(clazz.java)
     }
 
+    @Mock
+    private lateinit var observerMovie: Observer<ArrayList<ResultsMovieItem>>
+
+    @Mock
+    private lateinit var observerTvshow: Observer<ArrayList<ResultsTvShowItem>>
+
+    @Mock
+    private lateinit var observerDetailMovie: Observer<MovieDetailResponse>
+
+    @Mock
+    private lateinit var observerDetailTvShow: Observer<TvShowDetailResponse>
+
     @Test
     fun checkInjection(){
         val mock = declareMock<RemoteDataSource>()
@@ -46,53 +69,81 @@ class MovieTvRepositoryTest : KoinTest {
 
     @Test
     fun loadMovie() {
+        val dataDummy = DataDummy.generateMovieApi()
+        val movieResponse = MutableLiveData<ArrayList<ResultsMovieItem>>()
+        movieResponse.value = dataDummy
         val mock = declareMock<RemoteDataSource>()
-        `when`(mock.loadMovie()).thenReturn(movieResponse)
-        val loadMovie = mock.loadMovie()
+        `when`(mock.loadMovieApi()).thenReturn(movieResponse)
+        val loadMovie = mock.loadMovieApi()
         assertNotNull(loadMovie)
-        assertEquals(7,loadMovie.size)
+        assertEquals(7,loadMovie.value?.size)
+
+        loadMovie.observeForever(observerMovie)
+        verify(observerMovie).onChanged(dataDummy)
     }
 
     @Test
     fun loadTvShow() {
+        val dataDummy = DataDummy.generateTvShowApi()
+        val tvShowResponse = MutableLiveData<ArrayList<ResultsTvShowItem>>()
+        tvShowResponse.value = dataDummy
         val mock = declareMock<RemoteDataSource>()
-        `when`(mock.loadTvShow()).thenReturn(tvShowResponse)
-        val loadTvShow = mock.loadTvShow()
+        `when`(mock.loadTvShowApi()).thenReturn(tvShowResponse)
+        val loadTvShow = mock.loadTvShowApi()
         assertNotNull(loadTvShow)
-        assertEquals(7, loadTvShow.size)
+        assertEquals(7, loadTvShow.value?.size)
+
+        loadTvShow.observeForever(observerTvshow)
+        verify(observerTvshow).onChanged(dataDummy)
     }
 
     @Test
     fun loadDetailMovie() {
-        val dataDetail = DataDummy.generateDetail("1")
+        val dataDummyDetail = DataDummy.generateMovieDetailApi("1")
+        val dataDetail = MutableLiveData<MovieDetailResponse>()
+        dataDetail.value = dataDummyDetail
         val mock = declareMock<RemoteDataSource>()
-        `when`(mock.loadDetailMovie("1")).thenReturn(movieDetailResponse)
-        val loadDetail = mock.loadDetailMovie("1")
+        `when`(mock.loadMovieDetailApi("1")).thenReturn(dataDetail)
+        val loadDetail = mock.loadMovieDetailApi("1")
+        val dataExpected = dataDetail.value
+        val dataActual = loadDetail.value
         assertNotNull(loadDetail)
-        assertEquals(dataDetail.id,loadDetail.id)
-        assertEquals(dataDetail.title,loadDetail.title)
-        assertEquals(dataDetail.year,loadDetail.date)
-        assertEquals(dataDetail.genre,loadDetail.genre)
-        assertEquals(dataDetail.producer,loadDetail.productionCompanies)
-        assertEquals(dataDetail.overview,loadDetail.overview)
-        assertEquals(dataDetail.url,loadDetail.homepage)
-        assertEquals(dataDetail.poster,loadDetail.poster)
+        assertEquals(dataExpected?.id, dataActual?.id)
+        assertEquals(dataExpected?.title, dataActual?.title)
+        assertEquals(dataExpected?.releaseDate, dataActual?.releaseDate)
+        assertEquals(dataExpected?.genres, dataActual?.genres)
+        assertEquals(dataExpected?.productionCompanies, dataActual?.productionCompanies)
+        assertEquals(dataExpected?.overview, dataActual?.overview)
+        assertEquals(dataExpected?.homepage, dataActual?.homepage)
+        assertEquals(dataExpected?.posterPath, dataActual?.posterPath)
+
+        loadDetail.observeForever(observerDetailMovie)
+        verify(observerDetailMovie).onChanged(dataDummyDetail)
     }
 
     @Test
     fun loadDetailTvShow() {
-        val dataDetail = DataDummy.generateDetail("20")
+        val dataDummyDetail = DataDummy.generateTvDetailApi("20")
+        val dataDetail = MutableLiveData<TvShowDetailResponse>()
+        dataDetail.value = dataDummyDetail
         val mock = declareMock<RemoteDataSource>()
-        `when`(mock.loadDetailTvShow("20")).thenReturn(tvDetailResponse)
-        val loadDetail = mock.loadDetailTvShow("20")
+        `when`(mock.loadTvShowDetailApi("20")).thenReturn(dataDetail)
+        val loadDetail = mock.loadTvShowDetailApi("20")
         assertNotNull(loadDetail)
-        assertEquals(dataDetail.id,loadDetail.id)
-        assertEquals(dataDetail.title,loadDetail.title)
-        assertEquals(dataDetail.year,loadDetail.date)
-        assertEquals(dataDetail.genre,loadDetail.genre)
-        assertEquals(dataDetail.producer,loadDetail.productionCompanies)
-        assertEquals(dataDetail.overview,loadDetail.overview)
-        assertEquals(dataDetail.url,loadDetail.homepage)
-        assertEquals(dataDetail.poster,loadDetail.poster)
+        val dataExpected = dataDetail.value
+        val dataActual = loadDetail.value
+        assertEquals(dataExpected?.id, dataActual?.id)
+        assertEquals(dataExpected?.name, dataActual?.name)
+        assertEquals(dataExpected?.firstAirDate, dataActual?.firstAirDate)
+        assertEquals(dataExpected?.genres, dataActual?.genres)
+        assertEquals(dataExpected?.productionCompanies, dataActual?.productionCompanies)
+        assertEquals(dataExpected?.overview, dataActual?.overview)
+        assertEquals(dataExpected?.homepage, dataActual?.homepage)
+        assertEquals(dataExpected?.posterPath, dataActual?.posterPath)
+
+        loadDetail.observeForever(observerDetailTvShow)
+        verify(observerDetailTvShow).onChanged(dataDummyDetail)
     }
+
+
 }

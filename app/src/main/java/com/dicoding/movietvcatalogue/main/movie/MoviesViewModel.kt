@@ -12,7 +12,7 @@ import com.dicoding.movietvcatalogue.utils.DataDummy
 class MoviesViewModel(private val movieTvRepository: MovieTvRepository) : ViewModel() {
     private val _moviesData = MutableLiveData<ArrayList<MovieTVEntity>>()
     val moviesData: LiveData<ArrayList<MovieTVEntity>> = _moviesData
-    fun fetchMovie() {
+    fun fetchMovie(): LiveData<ArrayList<MovieTVEntity>> {
         val movieList = ArrayList<MovieTVEntity>()
 
         movieTvRepository.loadMovieApi().observeForever(Observer{movies ->
@@ -23,6 +23,7 @@ class MoviesViewModel(private val movieTvRepository: MovieTvRepository) : ViewMo
             }
             _moviesData.value = movieList
         })
+        return moviesData
     }
     fun getMovie(): LiveData<ArrayList<MovieTVEntity>> {
         return moviesData

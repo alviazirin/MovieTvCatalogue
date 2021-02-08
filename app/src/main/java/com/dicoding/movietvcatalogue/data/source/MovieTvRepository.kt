@@ -144,14 +144,26 @@ class MovieTvRepository(private val remoteDataSource: RemoteDataSource): MovieTv
             val date = movieDetail.releaseDate.split("-").toTypedArray()
             val year = date[0]
             val listGenre = movieDetail.genres
-            val genre = listGenre.joinToString(", ")
+            val genreNames = ArrayList<String>()
+            for (genre in listGenre){
+                val genreName = genre.name
+
+                genreNames.add(genreName)
+            }
+            val genres = genreNames.joinToString(", ")
             val listComp = movieDetail.productionCompanies
-            val producer = listComp.joinToString(", ")
+            val compNames = ArrayList<String>()
+            for (company in listComp){
+                val compName = company.name
+
+                compNames.add(compName)
+            }
+            val producer = compNames.joinToString(", ")
             val overview = movieDetail.overview
             val url = movieDetail.homepage
             val poster = basePosterUrl+movieDetail.posterPath
 
-            _movieDetailData.value = MovieTvDetailEntity(id, title, year, genre, producer, overview, url, poster)
+            _movieDetailData.value = MovieTvDetailEntity(id, title, year, genres, producer, overview, url, poster)
         })
         return movieDetailData
     }
@@ -165,9 +177,21 @@ class MovieTvRepository(private val remoteDataSource: RemoteDataSource): MovieTv
             val date = showsDetail.firstAirDate.split("-").toTypedArray()
             val year = date[0]
             val listGenre = showsDetail.genres
-            val genre = listGenre.joinToString(", ")
+            val genreNames = ArrayList<String>()
+            for (genre in listGenre){
+                val genreName = genre.name
+
+                genreNames.add(genreName)
+            }
+            val genre = genreNames.joinToString(", ")
             val listComp = showsDetail.productionCompanies
-            val producer = listComp.joinToString(", ")
+            val compNames = ArrayList<String>()
+            for (company in listComp){
+                val compName = company.name
+
+                compNames.add(compName)
+            }
+            val producer = compNames.joinToString(", ")
             val overview = showsDetail.overview
             val url = showsDetail.homepage
             val poster = basePosterUrl+showsDetail.posterPath
