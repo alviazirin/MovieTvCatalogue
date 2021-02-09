@@ -1,18 +1,22 @@
 package com.dicoding.movietvcatalogue.main.tvshow
 
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.dicoding.movietvcatalogue.databinding.ItemTvshowsBinding
-import com.dicoding.movietvcatalogue.detail.DetailActivity
 import com.dicoding.movietvcatalogue.entity.MovieTVEntity
+import com.dicoding.movietvcatalogue.main.ItemClickCallback
 
 class TvAdapter : RecyclerView.Adapter<TvAdapter.TvShowViewHolder>() {
 
     private val listTvShow = ArrayList<MovieTVEntity>()
+    private var onItemClickCallback: ItemClickCallback? = null
+
+    fun setOnItemClick(onItemClick: ItemClickCallback) {
+        this.onItemClickCallback = onItemClick
+    }
 
     fun setShow(tvShow: List<MovieTVEntity>?) {
         if (tvShow == null)
@@ -21,7 +25,7 @@ class TvAdapter : RecyclerView.Adapter<TvAdapter.TvShowViewHolder>() {
         this.listTvShow.addAll(tvShow)
     }
 
-    class TvShowViewHolder(private val binding: ItemTvshowsBinding) :
+    inner class TvShowViewHolder(private val binding: ItemTvshowsBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(tvShow: MovieTVEntity) {
             with(binding) {
@@ -34,10 +38,7 @@ class TvAdapter : RecyclerView.Adapter<TvAdapter.TvShowViewHolder>() {
                 tvGenre.text = tvShow.date
 
                 itemView.setOnClickListener {
-                    val intent = Intent(itemView.context, DetailActivity::class.java)
-                    intent.putExtra(DetailActivity.EXTRA_ID, tvShow.id)
-                    intent.putExtra(DetailActivity.TYPE, 2)
-                    itemView.context.startActivity(intent)
+                    onItemClickCallback?.onItemClick(tvShow)
                 }
             }
         }

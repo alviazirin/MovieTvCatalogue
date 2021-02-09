@@ -1,5 +1,6 @@
 package com.dicoding.movietvcatalogue.main.tvshow
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +8,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dicoding.movietvcatalogue.databinding.FragmentTvBinding
+import com.dicoding.movietvcatalogue.detail.DetailActivity
+import com.dicoding.movietvcatalogue.entity.MovieTVEntity
+import com.dicoding.movietvcatalogue.main.ItemClickCallback
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
@@ -46,6 +50,16 @@ class TvFragment : Fragment() {
                             setHasFixedSize(true)
                             adapter = tvAdapter
                             showLoading(false)
+
+                            tvAdapter.setOnItemClick(object : ItemClickCallback {
+                                override fun onItemClick(data: MovieTVEntity) {
+                                    val intent = Intent(context, DetailActivity::class.java)
+                                    intent.putExtra(DetailActivity.EXTRA_ID, data.id)
+                                    intent.putExtra(DetailActivity.TYPE, 2)
+                                    startActivity(intent)
+                                }
+
+                            })
                         }
                     }
                 })

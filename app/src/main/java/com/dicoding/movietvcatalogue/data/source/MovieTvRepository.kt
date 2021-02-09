@@ -3,6 +3,7 @@ package com.dicoding.movietvcatalogue.data.source
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
+import com.dicoding.movietvcatalogue.BuildConfig
 import com.dicoding.movietvcatalogue.data.source.remote.RemoteDataSource
 import com.dicoding.movietvcatalogue.entity.MovieTVEntity
 import com.dicoding.movietvcatalogue.entity.MovieTvDetailEntity
@@ -10,7 +11,7 @@ import com.dicoding.movietvcatalogue.entity.MovieTvDetailEntity
 class MovieTvRepository(private val remoteDataSource: RemoteDataSource) : MovieTvDataSource {
 
 
-    private val basePosterUrl = "https://image.tmdb.org/t/p/original"
+    private val basePosterUrl = BuildConfig.BASE_URLIMG
     private val _movieData = MutableLiveData<ArrayList<MovieTVEntity>>()
     private val _tvShowData = MutableLiveData<ArrayList<MovieTVEntity>>()
     private val _movieDetailData = MutableLiveData<MovieTvDetailEntity>()

@@ -18,7 +18,7 @@ class RemoteDataSource {
 
     fun loadMovieApi(): LiveData<ArrayList<ResultsMovieItem>> {
         val movies = MutableLiveData<ArrayList<ResultsMovieItem>>()
-        val client = ApiConfig.getMovieService().getMovie()
+        val client = ApiConfig.getAPIService().getMovie()
         EspressoIdlingResource.increment()
         client.enqueue(object : Callback<MovieResponse> {
             override fun onResponse(call: Call<MovieResponse>, response: Response<MovieResponse>) {
@@ -45,7 +45,7 @@ class RemoteDataSource {
 
     fun loadTvShowApi(): LiveData<ArrayList<ResultsTvShowItem>> {
         val shows = MutableLiveData<ArrayList<ResultsTvShowItem>>()
-        val client = ApiConfig.getTvShowService().getTvShow()
+        val client = ApiConfig.getAPIService().getTvShow()
         EspressoIdlingResource.increment()
         client.enqueue(object : Callback<TvShowResponse> {
             override fun onResponse(
@@ -76,7 +76,7 @@ class RemoteDataSource {
     fun loadMovieDetailApi(movieId: String): LiveData<MovieDetailResponse> {
         val detail = MutableLiveData<MovieDetailResponse>()
         EspressoIdlingResource.increment()
-        val client = ApiConfig.getMovieDetailService().getDetailMovie(movieId)
+        val client = ApiConfig.getAPIService().getDetailMovie(movieId)
         client.enqueue(object : Callback<MovieDetailResponse> {
             override fun onResponse(
                 call: Call<MovieDetailResponse>,
@@ -106,7 +106,7 @@ class RemoteDataSource {
     fun loadTvShowDetailApi(tvShowId: String): LiveData<TvShowDetailResponse> {
         val detail = MutableLiveData<TvShowDetailResponse>()
         EspressoIdlingResource.increment()
-        val client = ApiConfig.getTvShowDetailService().getDetailTvShow(tvShowId)
+        val client = ApiConfig.getAPIService().getDetailTvShow(tvShowId)
         client.enqueue(object : Callback<TvShowDetailResponse> {
             override fun onResponse(
                 call: Call<TvShowDetailResponse>,

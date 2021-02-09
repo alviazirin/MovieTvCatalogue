@@ -1,6 +1,5 @@
 package com.dicoding.movietvcatalogue.main.movie
 
-import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -8,12 +7,17 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.dicoding.movietvcatalogue.databinding.ItemMoviesBinding
-import com.dicoding.movietvcatalogue.detail.DetailActivity
 import com.dicoding.movietvcatalogue.entity.MovieTVEntity
+import com.dicoding.movietvcatalogue.main.ItemClickCallback
 
 class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
 
     private val listShows = ArrayList<MovieTVEntity>()
+    private var onItemClickCallback: ItemClickCallback? = null
+
+    fun setOnItemClick(onItemClick: ItemClickCallback) {
+        this.onItemClickCallback = onItemClick
+    }
 
 
     fun setShow(shows: List<MovieTVEntity>?) {
@@ -37,10 +41,7 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
                 tvGenre.text = shows.date
 
                 itemView.setOnClickListener {
-                    val intent = Intent(itemView.context, DetailActivity::class.java)
-                    intent.putExtra(DetailActivity.EXTRA_ID, shows.id)
-                    intent.putExtra(DetailActivity.TYPE, 1)
-                    itemView.context.startActivity(intent)
+                    onItemClickCallback?.onItemClick(shows)
                 }
             }
         }
