@@ -4,11 +4,21 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.dicoding.movietvcatalogue.BuildConfig
+import com.dicoding.movietvcatalogue.data.source.local.LocalDataSource
+import com.dicoding.movietvcatalogue.data.source.remote.ApiResponse
 import com.dicoding.movietvcatalogue.data.source.remote.RemoteDataSource
+import com.dicoding.movietvcatalogue.data.source.remote.response.ResultsMovieItem
+import com.dicoding.movietvcatalogue.data.source.remote.response.ResultsTvShowItem
 import com.dicoding.movietvcatalogue.entity.MovieTVEntity
 import com.dicoding.movietvcatalogue.entity.MovieTvDetailEntity
+import com.dicoding.movietvcatalogue.utils.AppExecutors
+import com.dicoding.movietvcatalogue.vo.Resource
 
-class MovieTvRepository(private val remoteDataSource: RemoteDataSource) : MovieTvDataSource {
+class MovieTvRepository(
+    private val remoteDataSource: RemoteDataSource,
+    private val localDataSource: LocalDataSource,
+    private val appExecutors: AppExecutors
+) : MovieTvDataSource {
 
 
     private val basePosterUrl = BuildConfig.BASE_URLIMG
@@ -18,53 +28,80 @@ class MovieTvRepository(private val remoteDataSource: RemoteDataSource) : MovieT
     private val _tvShowDetailData = MutableLiveData<MovieTvDetailEntity>()
 
 
-    override fun loadMovieApi(): LiveData<ArrayList<MovieTVEntity>> {
-        val movieList = ArrayList<MovieTVEntity>()
-        val movieData: LiveData<ArrayList<MovieTVEntity>> = _movieData
+    override fun loadMovieApi(): LiveData<Resource<List<MovieTVEntity>>> {
+        return object :
+            NetworkBoundResource<List<MovieTVEntity>, ArrayList<ResultsMovieItem>>(appExecutors) {
+            override fun loadFromDB(): LiveData<List<MovieTVEntity>> =
+                localDataSource.getDataMovie()
 
+            override fun shouldFetch(data: List<MovieTVEntity>?): Boolean =
+                data == null || data.isEmpty()
 
-        remoteDataSource.loadMovieApi().observeForever(Observer { movies ->
-            for (movie in movies) {
-                val id = movie.id
-                val title = movie.title
-                val year = movie.releaseDate.split("-").toTypedArray()
-                val date = year[0]
-                val poster = basePosterUrl + movie.posterPath
+            override fun createCall(): LiveData<ApiResponse<ArrayList<ResultsMovieItem>>> =
+                remoteDataSource.loadMovieApi()
 
-                val mov = MovieTVEntity(id, title, date, poster)
+            override fun saveCallResult(movies: ArrayList<ResultsMovieItem>) {
+                val movieList = ArrayList<MovieTVEntity>()
+                for (movie in movies) {
+                    val date = movie.releaseDate.split("-").toTypedArray()
+                    val movieItem = MovieTVEntity(
+                        movie.id,
+                        movie.title,
+                        date[0],
+                        basePosterUrl + movie.posterPath,
+                        1,
+                        false
+                    )
 
-                movieList.add(mov)
+                    movieList.add(movieItem)
+                }
+                localDataSource.insertMovieTv(movieList)
             }
-            _movieData.value = movieList
-        })
-        return movieData
+
+        }.asLiveData()
+
     }
 
-    override fun loadTvShowApi(): LiveData<ArrayList<MovieTVEntity>> {
-        val tvShowList = ArrayList<MovieTVEntity>()
-        val tvShowData: LiveData<ArrayList<MovieTVEntity>> = _tvShowData
+    override fun loadTvShowApi(): LiveData<Resource<List<MovieTVEntity>>> {
+        return object :
+            NetworkBoundResource<List<MovieTVEntity>, ArrayList<ResultsTvShowItem>>(
+                appExecutors
+            ) {
+            override fun loadFromDB(): LiveData<List<MovieTVEntity>> =
+                localDataSource.getDataTV()
 
-        remoteDataSource.loadTvShowApi().observeForever(Observer { tvShows ->
-            for (tvShow in tvShows) {
-                val id = tvShow.id
-                val title = tvShow.name
-                val year = tvShow.firstAirDate.split("-").toTypedArray()
-                val date = year[0]
-                val poster = basePosterUrl + tvShow.posterPath
+            override fun shouldFetch(data: List<MovieTVEntity>?): Boolean =
+                data == null || data.isEmpty()
 
-                val show = MovieTVEntity(id, title, date, poster)
+            override fun createCall(): LiveData<ApiResponse<ArrayList<ResultsTvShowItem>>> =
+                remoteDataSource.loadTvShowApi()
 
-                tvShowList.add(show)
+            override fun saveCallResult(tvShows: ArrayList<ResultsTvShowItem>) {
+                val tvShowList = ArrayList<MovieTVEntity>()
+                for (tvShow in tvShows) {
+                    val date = tvShow.firstAirDate.split("-").toTypedArray()
+                    val show = MovieTVEntity(
+                        tvShow.id,
+                        tvShow.name,
+                        date[0],
+                        basePosterUrl + tvShow.posterPath,
+                        2,
+                        false
+                    )
+
+                    tvShowList.add(show)
+                }
+                localDataSource.insertMovieTv(tvShowList)
             }
-            _tvShowData.value = tvShowList
-        })
-        return tvShowData
+
+        }.asLiveData()
     }
 
     override fun loadDetailMovieApi(movieId: String): LiveData<MovieTvDetailEntity> {
         val movieDetailData: LiveData<MovieTvDetailEntity> = _movieDetailData
 
-        remoteDataSource.loadMovieDetailApi(movieId).observeForever(Observer { movieDetail ->
+        remoteDataSource.loadMovieDetailApi(movieId).observeForever(Observer { movie ->
+            val movieDetail = movie.body
             val id = movieDetail.id
             val title = movieDetail.title
             val date = movieDetail.releaseDate.split("-").toTypedArray()
@@ -98,7 +135,8 @@ class MovieTvRepository(private val remoteDataSource: RemoteDataSource) : MovieT
     override fun loadDetailTvShowApi(tvShowId: String): LiveData<MovieTvDetailEntity> {
         val tvShowDetailData: LiveData<MovieTvDetailEntity> = _tvShowDetailData
 
-        remoteDataSource.loadTvShowDetailApi(tvShowId).observeForever(Observer { showsDetail ->
+        remoteDataSource.loadTvShowDetailApi(tvShowId).observeForever(Observer { shows ->
+            val showsDetail = shows.body
             val id = showsDetail.id
             val title = showsDetail.name
             val date = showsDetail.firstAirDate.split("-").toTypedArray()

@@ -45,6 +45,7 @@ ext {
     koinVersion = '2.2.2'
     retrofitVersion = '2.9.0'
     okhttp3Version = '4.9.1'
+    roomVersion = '2.2.6'
 
 
     materialVersion = '1.2.1'

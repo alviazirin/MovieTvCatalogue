@@ -16,7 +16,9 @@ object DataDummy {
                 1,
                 "Avengers: Endgame",
                 "2019",
-                "https://image.tmdb.org/t/p/original/ulzhLuWrPK07P1YkdWQLZnQh1JL.jpg"
+                "https://image.tmdb.org/t/p/original/ulzhLuWrPK07P1YkdWQLZnQh1JL.jpg",
+                1,
+                false
             )
         )
         movies.add(
@@ -24,7 +26,9 @@ object DataDummy {
                 2,
                 "A Star is Born",
                 "2018",
-                "https://image.tmdb.org/t/p/original/wrFpXMNBRj2PBiN4Z5kix51XaIZ.jpg"
+                "https://image.tmdb.org/t/p/original/wrFpXMNBRj2PBiN4Z5kix51XaIZ.jpg",
+                1,
+                false
             )
         )
         movies.add(
@@ -32,7 +36,9 @@ object DataDummy {
                 3,
                 "Alita: Battle Angel",
                 "2019",
-                "https://image.tmdb.org/t/p/original/xRWht48C2V8XNfzvPehyClOvDni.jpg"
+                "https://image.tmdb.org/t/p/original/xRWht48C2V8XNfzvPehyClOvDni.jpg",
+                1,
+                false
             )
         )
         movies.add(
@@ -40,7 +46,9 @@ object DataDummy {
                 4,
                 "Aquaman",
                 "2018",
-                "https://image.tmdb.org/t/p/original/5Kg76ldv7VxeX9YlcQXiowHgdX6.jpg"
+                "https://image.tmdb.org/t/p/original/5Kg76ldv7VxeX9YlcQXiowHgdX6.jpg",
+                1,
+                false
             )
         )
         movies.add(
@@ -48,7 +56,9 @@ object DataDummy {
                 5,
                 "Bohemian Rhapsody",
                 "2018",
-                "https://image.tmdb.org/t/p/original/lHu1wtNaczFPGFDTrjCSzeLPTKN.jpg"
+                "https://image.tmdb.org/t/p/original/lHu1wtNaczFPGFDTrjCSzeLPTKN.jpg",
+                1,
+                false
             )
         )
         movies.add(
@@ -56,7 +66,9 @@ object DataDummy {
                 6,
                 "Cold Pursuit",
                 "2019",
-                "https://image.tmdb.org/t/p/original/hXgmWPd1SuujRZ4QnKLzrj79PAw.jpg"
+                "https://image.tmdb.org/t/p/original/hXgmWPd1SuujRZ4QnKLzrj79PAw.jpg",
+                1,
+                false
             )
         )
         movies.add(
@@ -64,7 +76,9 @@ object DataDummy {
                 7,
                 "Creed II",
                 "2018",
-                "https://image.tmdb.org/t/p/original/v3QyboWRoA4O9RbcsqH8tJMe8EB.jpg"
+                "https://image.tmdb.org/t/p/original/v3QyboWRoA4O9RbcsqH8tJMe8EB.jpg",
+                1,
+                false
             )
         )
         movies.add(
@@ -72,7 +86,9 @@ object DataDummy {
                 8,
                 "Fantastic Beasts: The Crimes of Grindelwald",
                 "2018",
-                "https://image.tmdb.org/t/p/original/fMMrl8fD9gRCFJvsx0SuFwkEOop.jpg"
+                "https://image.tmdb.org/t/p/original/fMMrl8fD9gRCFJvsx0SuFwkEOop.jpg",
+                1,
+                false
             )
         )
         movies.add(
@@ -80,7 +96,9 @@ object DataDummy {
                 9,
                 "Glass",
                 "2019",
-                "https://image.tmdb.org/t/p/original/svIDTNUoajS8dLEo7EosxvyAsgJ.jpg"
+                "https://image.tmdb.org/t/p/original/svIDTNUoajS8dLEo7EosxvyAsgJ.jpg",
+                1,
+                false
             )
         )
         movies.add(
@@ -88,7 +106,9 @@ object DataDummy {
                 10,
                 "How to Train Your Dragon: The Hidden World",
                 "2019",
-                "https://image.tmdb.org/t/p/original/svIDTNUoajS8dLEo7EosxvyAsgJ.jpg"
+                "https://image.tmdb.org/t/p/original/svIDTNUoajS8dLEo7EosxvyAsgJ.jpg",
+                1,
+                false
             )
         )
         movies.add(
@@ -96,7 +116,9 @@ object DataDummy {
                 11,
                 "Mary Queen of Scots",
                 "2018",
-                "https://image.tmdb.org/t/p/original/b5RMzLAyq5QW6GtN9sIeAEMLlBI.jpg"
+                "https://image.tmdb.org/t/p/original/b5RMzLAyq5QW6GtN9sIeAEMLlBI.jpg",
+                1,
+                false
             )
         )
         movies.add(
@@ -104,7 +126,9 @@ object DataDummy {
                 12,
                 "Master Z: Ip Man Legacy",
                 "2018",
-                "https://image.tmdb.org/t/p/original/6VxEvOF7QDovsG6ro9OVyjH07LF.jpg"
+                "https://image.tmdb.org/t/p/original/6VxEvOF7QDovsG6ro9OVyjH07LF.jpg",
+                1,
+                false
             )
         )
         movies.add(
@@ -112,7 +136,9 @@ object DataDummy {
                 13,
                 "Mortal Engines",
                 "2018",
-                "https://image.tmdb.org/t/p/original/gLhYg9NIvIPKVRTtvzCWnp1qJWG.jpg"
+                "https://image.tmdb.org/t/p/original/gLhYg9NIvIPKVRTtvzCWnp1qJWG.jpg",
+                1,
+                false
             )
         )
         movies.add(
@@ -120,7 +146,9 @@ object DataDummy {
                 14,
                 "Overlord",
                 "2018",
-                "https://image.tmdb.org/t/p/original/l76Rgp32z2UxjULApxGXAPpYdAP.jpg"
+                "https://image.tmdb.org/t/p/original/l76Rgp32z2UxjULApxGXAPpYdAP.jpg",
+                1,
+                false
             )
         )
         movies.add(
@@ -128,7 +156,9 @@ object DataDummy {
                 15,
                 "Wreck-It Ralph",
                 "2012",
-                "https://image.tmdb.org/t/p/original/nsUAgWCxqbTD9wkKrv3nBGH2DVk.jpg"
+                "https://image.tmdb.org/t/p/original/nsUAgWCxqbTD9wkKrv3nBGH2DVk.jpg",
+                1,
+                false
             )
         )
         movies.add(
@@ -136,7 +166,9 @@ object DataDummy {
                 16,
                 "Robin Hood",
                 "2018",
-                "https://image.tmdb.org/t/p/original/AiRfixFcfTkNbn2A73qVJPlpkUo.jpg"
+                "https://image.tmdb.org/t/p/original/AiRfixFcfTkNbn2A73qVJPlpkUo.jpg",
+                1,
+                false
             )
         )
         movies.add(
@@ -144,7 +176,9 @@ object DataDummy {
                 17,
                 "Serenity",
                 "2019",
-                "https://image.tmdb.org/t/p/original/hgWAcic93phg4DOuQ8NrsgQWiqu.jpg"
+                "https://image.tmdb.org/t/p/original/hgWAcic93phg4DOuQ8NrsgQWiqu.jpg",
+                1,
+                false
             )
         )
         movies.add(
@@ -152,7 +186,9 @@ object DataDummy {
                 18,
                 "Spider-Man: Into the Spider-Verse",
                 "2018",
-                "https://image.tmdb.org/t/p/original/iiZZdoQBEYBv6id8su7ImL0oCbD.jpg"
+                "https://image.tmdb.org/t/p/original/iiZZdoQBEYBv6id8su7ImL0oCbD.jpg",
+                1,
+                false
             )
         )
         movies.add(
@@ -160,7 +196,9 @@ object DataDummy {
                 19,
                 "T-34",
                 "2018",
-                "https://image.tmdb.org/t/p/original/jqBIHiSglRfNxjh1zodHLa9E7zW.jpg"
+                "https://image.tmdb.org/t/p/original/jqBIHiSglRfNxjh1zodHLa9E7zW.jpg",
+                1,
+                false
             )
         )
 
@@ -175,7 +213,9 @@ object DataDummy {
                 20,
                 "Arrow",
                 "2012",
-                "https://image.tmdb.org/t/p/original/gKG5QGz5Ngf8fgWpBsWtlg5L2SF.jpg"
+                "https://image.tmdb.org/t/p/original/gKG5QGz5Ngf8fgWpBsWtlg5L2SF.jpg",
+                2,
+                false
             )
         )
         tvShow.add(
@@ -183,7 +223,9 @@ object DataDummy {
                 21,
                 "Doom Patrol",
                 "2019",
-                "https://image.tmdb.org/t/p/original/drlfSCIlMKrEeMPhi8pqY4xGxj.jpg"
+                "https://image.tmdb.org/t/p/original/drlfSCIlMKrEeMPhi8pqY4xGxj.jpg",
+                2,
+                false
             )
         )
         tvShow.add(
@@ -191,7 +233,9 @@ object DataDummy {
                 22,
                 "Dragon Ball",
                 "1996",
-                "https://image.tmdb.org/t/p/original/tZ0jXOeYBWPZ0OWzUhTlYvMF7YR.jpg"
+                "https://image.tmdb.org/t/p/original/tZ0jXOeYBWPZ0OWzUhTlYvMF7YR.jpg",
+                2,
+                false
             )
         )
         tvShow.add(
@@ -199,7 +243,9 @@ object DataDummy {
                 23,
                 "Fairy Tail",
                 "2009",
-                "https://image.tmdb.org/t/p/original/1T6XCwWpmg1B4jrzAlcFCnJGQVD.jpg"
+                "https://image.tmdb.org/t/p/original/1T6XCwWpmg1B4jrzAlcFCnJGQVD.jpg",
+                2,
+                false
             )
         )
         tvShow.add(
@@ -207,7 +253,9 @@ object DataDummy {
                 24,
                 "The Flash",
                 "2014",
-                "https://image.tmdb.org/t/p/original/wHa6KOJAoNTFLFtp7wguUJKSnju.jpg"
+                "https://image.tmdb.org/t/p/original/wHa6KOJAoNTFLFtp7wguUJKSnju.jpg",
+                2,
+                false
             )
         )
         tvShow.add(
@@ -215,7 +263,9 @@ object DataDummy {
                 25,
                 "Game of Thrones",
                 "2011",
-                "https://image.tmdb.org/t/p/original/u3bZgnGQ9T01sWNhyveQz0wH0Hl.jpg"
+                "https://image.tmdb.org/t/p/original/u3bZgnGQ9T01sWNhyveQz0wH0Hl.jpg",
+                2,
+                false
             )
         )
         tvShow.add(
@@ -223,7 +273,9 @@ object DataDummy {
                 26,
                 "Gotham",
                 "2014",
-                "https://image.tmdb.org/t/p/original/4XddcRDtnNjYmLRMYpbrhFxsbuq.jpg"
+                "https://image.tmdb.org/t/p/original/4XddcRDtnNjYmLRMYpbrhFxsbuq.jpg",
+                2,
+                false
             )
         )
         tvShow.add(
@@ -231,7 +283,9 @@ object DataDummy {
                 27,
                 "Grey's Anatomy",
                 "2005",
-                "https://image.tmdb.org/t/p/original/clnyhPqj1SNgpAdeSS6a6fwE6Bo.jpg"
+                "https://image.tmdb.org/t/p/original/clnyhPqj1SNgpAdeSS6a6fwE6Bo.jpg",
+                2,
+                false
             )
         )
         tvShow.add(
@@ -239,7 +293,9 @@ object DataDummy {
                 28,
                 "Hanna",
                 "2019",
-                "https://image.tmdb.org/t/p/original/iYUtjx1EN4SVTgxd2TB4cZTGSQb.jpg"
+                "https://image.tmdb.org/t/p/original/iYUtjx1EN4SVTgxd2TB4cZTGSQb.jpg",
+                2,
+                false
             )
         )
         tvShow.add(
@@ -247,7 +303,9 @@ object DataDummy {
                 29,
                 "Marvel's Iron Fist",
                 "2017",
-                "https://image.tmdb.org/t/p/original/4l6KD9HhtD6nCDEfg10Lp6C6zah.jpg"
+                "https://image.tmdb.org/t/p/original/4l6KD9HhtD6nCDEfg10Lp6C6zah.jpg",
+                2,
+                false
             )
         )
         tvShow.add(
@@ -255,7 +313,9 @@ object DataDummy {
                 30,
                 "Naruto Shippūden",
                 "2007",
-                "https://image.tmdb.org/t/p/original/hKkY4Hf5tDKCwVzzeo42vp1RxPQ.jpg"
+                "https://image.tmdb.org/t/p/original/hKkY4Hf5tDKCwVzzeo42vp1RxPQ.jpg",
+                2,
+                false
             )
         )
         tvShow.add(
@@ -263,7 +323,9 @@ object DataDummy {
                 31,
                 "The Walking Dead",
                 "2010",
-                "https://image.tmdb.org/t/p/original/qgjP2OrrX9gc6M270xdPnEmE9tC.jpg"
+                "https://image.tmdb.org/t/p/original/qgjP2OrrX9gc6M270xdPnEmE9tC.jpg",
+                2,
+                false
             )
         )
 
