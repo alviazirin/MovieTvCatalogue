@@ -32,4 +32,8 @@ class DetailViewModel(private val movieTvRepository: MovieTvRepository) : ViewMo
     fun getDetailTvShow(): LiveData<MovieTvDetailEntity> {
         return tvShowDetailData
     }
+
+    fun favorite(id: String) = movieTvRepository.favorited(id)
+
+    fun unfavorited(id: String) = movieTvRepository.unfavorited(id)
 }

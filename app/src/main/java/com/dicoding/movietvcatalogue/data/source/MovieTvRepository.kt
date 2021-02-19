@@ -167,5 +167,14 @@ class MovieTvRepository(
         return tvShowDetailData
     }
 
+    override fun getFavoriteMovie(): LiveData<List<MovieTVEntity>> = localDataSource.getFavoriteMovie()
+
+    override fun getFavoriteTvShow(): LiveData<List<MovieTVEntity>> = localDataSource.getFavoriteTvShow()
+
+
+    override fun favorited(id: String) = appExecutors.diskIO().execute { localDataSource.favorited(id) }
+
+    override fun unfavorited(id: String) = appExecutors.diskIO().execute { localDataSource.unfavorited(id) }
+
 
 }

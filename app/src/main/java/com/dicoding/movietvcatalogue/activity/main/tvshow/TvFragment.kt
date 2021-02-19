@@ -61,6 +61,7 @@ class TvFragment : Fragment() {
                                             val intent = Intent(context, DetailActivity::class.java)
                                             intent.putExtra(DetailActivity.EXTRA_ID, data.id)
                                             intent.putExtra(DetailActivity.TYPE, data.type)
+                                            intent.putExtra(DetailActivity.FAVORITE, data.favorite)
                                             startActivity(intent)
                                         }
 

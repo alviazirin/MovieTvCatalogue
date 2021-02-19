@@ -14,4 +14,13 @@ interface MovieTvDataSource {
   fun loadDetailMovieApi(movieId: String): LiveData<MovieTvDetailEntity>
 
   fun loadDetailTvShowApi(tvShowId: String): LiveData<MovieTvDetailEntity>
+
+  fun getFavoriteMovie(): LiveData<List<MovieTVEntity>>
+
+  fun getFavoriteTvShow(): LiveData<List<MovieTVEntity>>
+
+  fun favorited(id: String)
+
+  fun unfavorited(id: String)
+
 }

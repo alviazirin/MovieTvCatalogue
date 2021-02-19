@@ -19,4 +19,12 @@ class LocalDataSource(val movieTvDao: MovieTvDao) {
     fun insertMovieTv(movieTvItems: ArrayList<MovieTVEntity>) = movieTvDao.insertMovieTv(movieTvItems)
 
     fun deleteMovieTv(movieTVEntity: MovieTVEntity) = movieTvDao.deleteMovieTv(movieTVEntity)
+
+    fun favorited(id: String) = movieTvDao.favorited(id)
+
+    fun unfavorited(id: String) = movieTvDao.unfavorited(id)
+
+    fun getFavoriteMovie(): LiveData<List<MovieTVEntity>> = movieTvDao.getFavoriteMovie()
+
+    fun getFavoriteTvShow(): LiveData<List<MovieTVEntity>> = movieTvDao.getFavoriteTv()
 }

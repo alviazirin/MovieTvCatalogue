@@ -88,6 +88,7 @@ dependencies {
     //room
     implementation "androidx.room:room-runtime:$roomVersion"
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation "androidx.paging:paging-runtime:$pagingVersion"
     kapt "androidx.room:room-compiler:$roomVersion"
 
     // Koin for Unit tests

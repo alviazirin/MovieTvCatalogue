@@ -38,7 +38,7 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
                 Log.d("adapter", shows.date)
 
                 tvTitle.text = shows.title
-                tvGenre.text = shows.date
+                tvDate.text = shows.date
 
                 itemView.setOnClickListener {
                     onItemClickCallback?.onItemClick(shows)

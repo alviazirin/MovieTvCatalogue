@@ -17,4 +17,16 @@ interface MovieTvDao {
 
     @Query("SELECT * FROM movietventity WHERE type = 2 ORDER BY title DESC")
     fun getDataTv(): LiveData<List<MovieTVEntity>>
+
+    @Query("UPDATE movietventity SET favorite = 1 WHERE id = :id")
+    fun favorited(id: String)
+
+    @Query("UPDATE movietventity SET favorite = 0 WHERE id = :id")
+    fun unfavorited(id: String)
+
+    @Query("SELECT * FROM movietventity WHERE type = 1 AND favorite = 1 ORDER BY title DESC")
+    fun getFavoriteMovie(): LiveData<List<MovieTVEntity>>
+
+    @Query("SELECT * FROM movietventity WHERE type = 2 AND favorite = 1 ORDER BY title DESC")
+    fun getFavoriteTv(): LiveData<List<MovieTVEntity>>
 }

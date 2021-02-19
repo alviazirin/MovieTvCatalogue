@@ -8,6 +8,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.dicoding.movietvcatalogue.R
 import com.dicoding.movietvcatalogue.databinding.ActivityDetailActitvityBinding
 import com.dicoding.movietvcatalogue.entity.MovieTvDetailEntity
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -15,38 +16,54 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class DetailActivity : AppCompatActivity() {
 
     private lateinit var detailActivityBinding: ActivityDetailActitvityBinding
+    private var _detailActivityBinding: ActivityDetailActitvityBinding? = null
+    private val binding get() = _detailActivityBinding
     private val viewModel by viewModel<DetailViewModel>()
 
     companion object {
         const val EXTRA_ID = "extra_id"
         const val TYPE = "type"
+        const val FAVORITE = "favorite"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        detailActivityBinding = ActivityDetailActitvityBinding.inflate(layoutInflater)
-        setContentView(detailActivityBinding.root)
+        _detailActivityBinding = ActivityDetailActitvityBinding.inflate(layoutInflater)
+        setContentView(binding?.root)
 
 
         val extras = intent.extras
         if (extras != null) {
             val id = extras.getInt(EXTRA_ID)
             val type = extras.getInt(TYPE)
+            val fav = extras.getBoolean(FAVORITE)
             showLoading(true)
             if (type == 1) {
                 viewModel.fetchDetailMovie(id.toString())
                 viewModel.getDetailMovie().observe(this, { detailData ->
                     fillDetail(detailData)
+                    stateFavorite(fav)
                 })
             } else {
                 viewModel.fetchDetailTvShow(id.toString())
                 viewModel.getDetailTvShow().observe(this, { detailData ->
                     fillDetail(detailData)
+                    stateFavorite(fav)
                 })
             }
 
+            binding?.fabFav?.setOnClickListener {
+
+                if (fav){
+                    viewModel.unfavorited(id.toString())
+                    stateFavorite(!fav)
+                } else {
+                    viewModel.favorite(id.toString())
+                    stateFavorite(!fav)
+                }
+            }
         }
-        detailActivityBinding.fabShare.setOnClickListener {
+        binding?.fabShare?.setOnClickListener {
             val sendIntent = Intent().apply {
                 action = Intent.ACTION_SEND
                 putExtra(EXTRA_TEXT, detailActivityBinding.tvUrl.text)
@@ -55,28 +72,37 @@ class DetailActivity : AppCompatActivity() {
             val shareIntent = Intent.createChooser(sendIntent, "Share To")
             startActivity(shareIntent)
         }
+
     }
 
     private fun fillDetail(showData: MovieTvDetailEntity) {
         Glide.with(this)
             .load(showData.poster)
             .apply(RequestOptions().override(168, 208))
-            .into(detailActivityBinding.ivPoster)
+            .into(binding?.ivPoster!!)
 
-        detailActivityBinding.tvTitle.text = showData.title
-        detailActivityBinding.tvYear.text = showData.year
-        detailActivityBinding.tvGenre.text = showData.genre
-        detailActivityBinding.tvCreatorDirector.text = showData.producer
-        detailActivityBinding.tvDescription.text = showData.overview
-        detailActivityBinding.tvUrl.text = showData.url
+        binding?.tvTitle?.text = showData.title
+        binding?.tvYear?.text = showData.year
+        binding?.tvGenre?.text = showData.genre
+        binding?.tvCreatorDirector?.text = showData.producer
+        binding?.tvDescription?.text = showData.overview
+        binding?.tvUrl?.text = showData.url
         showLoading(false)
     }
 
     private fun showLoading(state: Boolean) {
         if (state) {
-            detailActivityBinding.progressBar.visibility = View.VISIBLE
+            binding?.progressBar?.visibility = View.VISIBLE
         } else {
-            detailActivityBinding.progressBar.visibility = View.GONE
+            binding?.progressBar?.visibility = View.GONE
+        }
+    }
+
+    private fun stateFavorite(state: Boolean){
+        if (state){
+            binding?.fabFav?.setImageResource(R.drawable.ic_favorite)
+        } else {
+            binding?.fabFav?.setImageResource(R.drawable.ic_unfavorite)
         }
     }
 

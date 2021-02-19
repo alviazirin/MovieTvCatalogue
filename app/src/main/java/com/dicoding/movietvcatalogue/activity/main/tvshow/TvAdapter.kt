@@ -35,7 +35,7 @@ class TvAdapter : RecyclerView.Adapter<TvAdapter.TvShowViewHolder>() {
                     .into(ivPoster)
 
                 tvTitle.text = tvShow.title
-                tvGenre.text = tvShow.date
+                tvDate.text = tvShow.date
 
                 itemView.setOnClickListener {
                     onItemClickCallback?.onItemClick(tvShow)
