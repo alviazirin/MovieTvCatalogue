@@ -1,15 +1,16 @@
 package com.dicoding.movietvcatalogue.data.source
 
 import androidx.lifecycle.LiveData
+import androidx.paging.PagedList
 import com.dicoding.movietvcatalogue.entity.MovieTVEntity
 import com.dicoding.movietvcatalogue.entity.MovieTvDetailEntity
 import com.dicoding.movietvcatalogue.vo.Resource
 
 interface MovieTvDataSource {
 
-  fun loadMovieApi(): LiveData<Resource<List<MovieTVEntity>>>
+  fun loadMovieApi(): LiveData<Resource<PagedList<MovieTVEntity>>>
 
-  fun loadTvShowApi(): LiveData<Resource<List<MovieTVEntity>>>
+  fun loadTvShowApi(): LiveData<Resource<PagedList<MovieTVEntity>>>
 
   fun loadDetailMovieApi(movieId: String): LiveData<MovieTvDetailEntity>
 

@@ -1,5 +1,6 @@
 package com.dicoding.movietvcatalogue.activity.detail
 
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.dicoding.movietvcatalogue.data.source.MovieTvRepository
@@ -8,6 +9,23 @@ import com.dicoding.movietvcatalogue.di.appModule
 import com.dicoding.movietvcatalogue.di.viewModelModule
 import com.dicoding.movietvcatalogue.entity.MovieTvDetailEntity
 import com.dicoding.movietvcatalogue.utils.DataDummy
+import com.nhaarman.mockitokotlin2.verify
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotNull
+import org.junit.Rule
+import org.junit.Test
+import org.junit.runner.RunWith
+import org.koin.test.KoinTest
+import org.koin.test.KoinTestRule
+import org.koin.test.get
+import org.koin.test.mock.MockProviderRule
+import org.koin.test.mock.declareMock
+import org.mockito.Mock
+import org.mockito.Mockito
+import org.mockito.Mockito.`when`
+
+
+import org.mockito.junit.MockitoJUnitRunner
 
 @RunWith(MockitoJUnitRunner::class)
 class DetailViewModelTest : KoinTest {

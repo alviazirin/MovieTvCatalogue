@@ -1,6 +1,7 @@
 package com.dicoding.movietvcatalogue.data.source.local.database
 
 import androidx.lifecycle.LiveData
+import androidx.paging.DataSource
 import androidx.room.*
 import com.dicoding.movietvcatalogue.entity.MovieTVEntity
 
@@ -13,10 +14,10 @@ interface MovieTvDao {
     fun deleteMovieTv(movieTVItem: MovieTVEntity)
 
     @Query("SELECT * FROM movietventity WHERE type = 1 ORDER BY title DESC")
-    fun getDataMovie(): LiveData<List<MovieTVEntity>>
+    fun getDataMovie(): DataSource.Factory<Int, MovieTVEntity>
 
     @Query("SELECT * FROM movietventity WHERE type = 2 ORDER BY title DESC")
-    fun getDataTv(): LiveData<List<MovieTVEntity>>
+    fun getDataTv(): DataSource.Factory<Int, MovieTVEntity>
 
     @Query("UPDATE movietventity SET favorite = 1 WHERE id = :id")
     fun favorited(id: String)

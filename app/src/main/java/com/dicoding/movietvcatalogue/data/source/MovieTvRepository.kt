@@ -3,6 +3,8 @@ package com.dicoding.movietvcatalogue.data.source
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
+import androidx.paging.LivePagedListBuilder
+import androidx.paging.PagedList
 import com.dicoding.movietvcatalogue.BuildConfig
 import com.dicoding.movietvcatalogue.data.source.local.LocalDataSource
 import com.dicoding.movietvcatalogue.data.source.remote.ApiResponse
@@ -28,13 +30,20 @@ class MovieTvRepository(
     private val _tvShowDetailData = MutableLiveData<MovieTvDetailEntity>()
 
 
-    override fun loadMovieApi(): LiveData<Resource<List<MovieTVEntity>>> {
+    override fun loadMovieApi(): LiveData<Resource<PagedList<MovieTVEntity>>> {
         return object :
-            NetworkBoundResource<List<MovieTVEntity>, ArrayList<ResultsMovieItem>>(appExecutors) {
-            override fun loadFromDB(): LiveData<List<MovieTVEntity>> =
-                localDataSource.getDataMovie()
+            NetworkBoundResource<PagedList<MovieTVEntity>, ArrayList<ResultsMovieItem>>(appExecutors) {
+            override fun loadFromDB(): LiveData<PagedList<MovieTVEntity>>{
+                val config = PagedList.Config.Builder()
+                    .setEnablePlaceholders(false)
+                    .setInitialLoadSizeHint(5)
+                    .setPageSize(5)
+                    .build()
+                return LivePagedListBuilder(localDataSource.getDataMovie(), config).build()
+            }
 
-            override fun shouldFetch(data: List<MovieTVEntity>?): Boolean =
+
+            override fun shouldFetch(data: PagedList<MovieTVEntity>?): Boolean =
                 data == null || data.isEmpty()
 
             override fun createCall(): LiveData<ApiResponse<ArrayList<ResultsMovieItem>>> =
@@ -62,15 +71,23 @@ class MovieTvRepository(
 
     }
 
-    override fun loadTvShowApi(): LiveData<Resource<List<MovieTVEntity>>> {
+    override fun loadTvShowApi(): LiveData<Resource<PagedList<MovieTVEntity>>> {
         return object :
-            NetworkBoundResource<List<MovieTVEntity>, ArrayList<ResultsTvShowItem>>(
+            NetworkBoundResource<PagedList<MovieTVEntity>, ArrayList<ResultsTvShowItem>>(
                 appExecutors
             ) {
-            override fun loadFromDB(): LiveData<List<MovieTVEntity>> =
-                localDataSource.getDataTV()
+            override fun loadFromDB(): LiveData<PagedList<MovieTVEntity>>{
+                val config = PagedList.Config.Builder()
+                    .setEnablePlaceholders(false)
+                    .setInitialLoadSizeHint(5)
+                    .setPageSize(5)
+                    .build()
 
-            override fun shouldFetch(data: List<MovieTVEntity>?): Boolean =
+                return LivePagedListBuilder(localDataSource.getDataTV(), config).build()
+            }
+
+
+            override fun shouldFetch(data: PagedList<MovieTVEntity>?): Boolean =
                 data == null || data.isEmpty()
 
             override fun createCall(): LiveData<ApiResponse<ArrayList<ResultsTvShowItem>>> =

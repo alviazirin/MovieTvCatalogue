@@ -47,8 +47,7 @@ class TvFragment : Fragment() {
                         when(tvShows.status){
                             Status.LOADING -> showLoading(true)
                             Status.SUCCESS -> {
-                                tvAdapter.setShow(tvShows.data)
-                                tvAdapter.notifyDataSetChanged()
+                                tvAdapter.submitList(tvShows.data)
 
                                 with(tvBinding.rvTvShow) {
                                     layoutManager = LinearLayoutManager(context)

@@ -3,14 +3,32 @@ package com.dicoding.movietvcatalogue.activity.main.movie
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagedListAdapter
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.dicoding.movietvcatalogue.activity.main.ItemClickCallback
 import com.dicoding.movietvcatalogue.databinding.ItemMoviesBinding
 import com.dicoding.movietvcatalogue.entity.MovieTVEntity
-import com.dicoding.movietvcatalogue.activity.main.ItemClickCallback
 
-class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
+class MovieAdapter : PagedListAdapter<MovieTVEntity, MovieAdapter.MovieViewHolder>(DIFF_CALBACK) {
+
+    companion object {
+        private val DIFF_CALBACK = object : DiffUtil.ItemCallback<MovieTVEntity>() {
+            override fun areItemsTheSame(oldItem: MovieTVEntity, newItem: MovieTVEntity): Boolean {
+                return oldItem.id == newItem.id
+            }
+
+            override fun areContentsTheSame(
+                oldItem: MovieTVEntity,
+                newItem: MovieTVEntity
+            ): Boolean {
+                return oldItem == newItem
+            }
+
+        }
+    }
 
     private val listShows = ArrayList<MovieTVEntity>()
     private var onItemClickCallback: ItemClickCallback? = null

@@ -48,8 +48,7 @@ class MoviesFragment : Fragment() {
                         when(movies.status){
                             Status.LOADING -> showLoading(true)
                             Status.SUCCESS -> {
-                                moviesAdapter.setShow(movies.data)
-                                moviesAdapter.notifyDataSetChanged()
+                                moviesAdapter.submitList(movies.data)
 
                                 with(moviesBinding.rvMovies) {
                                     layoutManager = LinearLayoutManager(context)
