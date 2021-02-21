@@ -2,6 +2,7 @@ package com.dicoding.movietvcatalogue.activity.main.tvshow
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -39,33 +40,19 @@ class TvFragment : Fragment() {
         if (activity != null) {
 
             tvAdapter = TvAdapter()
-            try {
-                showLoading(true)
+
+
                 //viewModel.fetchTvShow()
                 viewModel.getTvShow().observe(viewLifecycleOwner, { tvShows ->
                     if (tvShows != null) {
                         when(tvShows.status){
                             Status.LOADING -> showLoading(true)
                             Status.SUCCESS -> {
+                                showLoading(false)
                                 tvAdapter.submitList(tvShows.data)
+                                Log.d("tvData", tvShows.data.toString() )
 
-                                with(tvBinding.rvTvShow) {
-                                    layoutManager = LinearLayoutManager(context)
-                                    setHasFixedSize(true)
-                                    adapter = tvAdapter
-                                    showLoading(false)
 
-                                    tvAdapter.setOnItemClick(object : ItemClickCallback {
-                                        override fun onItemClick(data: MovieTVEntity) {
-                                            val intent = Intent(context, DetailActivity::class.java)
-                                            intent.putExtra(DetailActivity.EXTRA_ID, data.id)
-                                            intent.putExtra(DetailActivity.TYPE, data.type)
-                                            intent.putExtra(DetailActivity.FAVORITE, data.favorite)
-                                            startActivity(intent)
-                                        }
-
-                                    })
-                                }
                             }
                             Status.ERROR -> {
                                 showLoading(false)
@@ -76,9 +63,25 @@ class TvFragment : Fragment() {
 
                     }
                 })
-            } catch (e: NullPointerException) {
-                showWarning(true)
+
+            with(tvBinding.rvTvShow) {
+                layoutManager = LinearLayoutManager(context)
+                setHasFixedSize(true)
+                adapter = tvAdapter
+                showLoading(false)
+
+                tvAdapter.setOnItemClick(object : ItemClickCallback {
+                    override fun onItemClick(data: MovieTVEntity) {
+                        val intent = Intent(context, DetailActivity::class.java)
+                        intent.putExtra(DetailActivity.EXTRA_ID, data.id)
+                        intent.putExtra(DetailActivity.TYPE, data.type)
+                        intent.putExtra(DetailActivity.FAVORITE, data.favorite)
+                        startActivity(intent)
+                    }
+
+                })
             }
+
         }
     }
 

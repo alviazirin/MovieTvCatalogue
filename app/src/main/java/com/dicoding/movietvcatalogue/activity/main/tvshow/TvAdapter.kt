@@ -69,9 +69,11 @@ class TvAdapter : PagedListAdapter<MovieTVEntity, TvAdapter.TvShowViewHolder>(DI
     }
 
     override fun onBindViewHolder(holder: TvShowViewHolder, position: Int) {
-        val tvShow = listTvShow[position]
-        holder.bind(tvShow)
+        val tvShow = getItem(position)
+        if (tvShow != null) {
+            holder.bind(tvShow)
+        }
     }
 
-    override fun getItemCount(): Int = listTvShow.size
+    /*override fun getItemCount(): Int = listTvShow.size*/
 }

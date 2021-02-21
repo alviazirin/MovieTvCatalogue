@@ -2,6 +2,7 @@ package com.dicoding.movietvcatalogue.activity.main.movie
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -40,47 +41,46 @@ class MoviesFragment : Fragment() {
         if (activity != null) {
 
             moviesAdapter = MovieAdapter()
-            try {
-                showLoading(true)
+
+
                 //viewModel.fetchMovie()
-                viewModel.getMovie().observe(viewLifecycleOwner) { movies ->
+                viewModel.getMovie().observe(viewLifecycleOwner, { movies ->
                     if (movies != null) {
                         when(movies.status){
                             Status.LOADING -> showLoading(true)
                             Status.SUCCESS -> {
+                                showLoading(false)
                                 moviesAdapter.submitList(movies.data)
+                                Log.d("movieData", movies.data.toString())
 
-                                with(moviesBinding.rvMovies) {
-                                    layoutManager = LinearLayoutManager(context)
-                                    setHasFixedSize(true)
-                                    adapter = moviesAdapter
-                                    showLoading(false)
 
-                                    moviesAdapter.setOnItemClick(object : ItemClickCallback {
-                                        override fun onItemClick(data: MovieTVEntity) {
-                                            val intent = Intent(context, DetailActivity::class.java)
-                                            intent.putExtra(DetailActivity.EXTRA_ID, data.id)
-                                            intent.putExtra(DetailActivity.TYPE, data.type)
-                                            intent.putExtra(DetailActivity.FAVORITE, data.favorite)
-                                            startActivity(intent)
-                                        }
-
-                                    })
-                                }
                             }
                             Status.ERROR -> {
                                 showLoading(false)
                                 Toast.makeText(context, "Terdapat Kesalahan", Toast.LENGTH_SHORT).show()
                             }
                         }
-
-
-
                     }
-                }
-            } catch (e: NullPointerException) {
-                showWarning(true)
+                })
+
+            with(moviesBinding.rvMovies) {
+                layoutManager = LinearLayoutManager(context)
+                setHasFixedSize(true)
+                adapter = moviesAdapter
+                showLoading(false)
+
+                moviesAdapter.setOnItemClick(object : ItemClickCallback {
+                    override fun onItemClick(data: MovieTVEntity) {
+                        val intent = Intent(context, DetailActivity::class.java)
+                        intent.putExtra(DetailActivity.EXTRA_ID, data.id)
+                        intent.putExtra(DetailActivity.TYPE, data.type)
+                        intent.putExtra(DetailActivity.FAVORITE, data.favorite)
+                        startActivity(intent)
+                    }
+
+                })
             }
+
 
         }
         moviesBinding.testCon.setOnClickListener { showWarning(true) }
