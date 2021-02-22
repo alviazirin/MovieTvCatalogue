@@ -10,7 +10,7 @@ import com.dicoding.movietvcatalogue.di.appModule
 import com.dicoding.movietvcatalogue.di.roomModule
 import com.dicoding.movietvcatalogue.di.viewModelModule
 import com.dicoding.movietvcatalogue.entity.MovieTVEntity
-import com.dicoding.movietvcatalogue.utils.DataDummy
+import com.dicoding.movietvcatalogue.utils.SortUtils
 import com.dicoding.movietvcatalogue.vo.Resource
 import com.nhaarman.mockitokotlin2.verify
 import junit.framework.TestCase.assertEquals
@@ -27,7 +27,6 @@ import org.koin.test.mock.declareMock
 import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.Mockito.`when`
-
 import org.mockito.junit.MockitoJUnitRunner
 
 @RunWith(MockitoJUnitRunner::class)
@@ -68,7 +67,7 @@ class MoviesViewModelTest : KoinTest {
     fun getMovie() {
 
         val mock = declareMock<MoviesViewModel>()
-        val dummyMovie = DataDummy.generateDummyMovie()
+
 
         val dummyData = Resource.success(pagedList)
         `when`(dummyData.data?.size).thenReturn(5)
@@ -76,9 +75,9 @@ class MoviesViewModelTest : KoinTest {
         movies.value = dummyData
 
 
-        `when`(mock.getMovie()).thenReturn(movies)
-        mock.getMovie()
-        val viewModel = mock.getMovie()
+        `when`(mock.getMovie(SortUtils.AZ)).thenReturn(movies)
+        mock.getMovie(SortUtils.AZ)
+        val viewModel = mock.getMovie(SortUtils.AZ)
         assertNotNull(viewModel.value)
         assertEquals(5, viewModel.value?.data?.size)
 

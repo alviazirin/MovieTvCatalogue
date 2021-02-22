@@ -30,16 +30,16 @@ class MovieTvRepository(
     private val _tvShowDetailData = MutableLiveData<MovieTvDetailEntity>()
 
 
-    override fun loadMovieApi(): LiveData<Resource<PagedList<MovieTVEntity>>> {
+    override fun loadMovieApi(sort: String): LiveData<Resource<PagedList<MovieTVEntity>>> {
         return object :
             NetworkBoundResource<PagedList<MovieTVEntity>, ArrayList<ResultsMovieItem>>(appExecutors) {
-            override fun loadFromDB(): LiveData<PagedList<MovieTVEntity>>{
+            override fun loadFromDB(): LiveData<PagedList<MovieTVEntity>> {
                 val config = PagedList.Config.Builder()
                     .setEnablePlaceholders(false)
                     .setInitialLoadSizeHint(5)
                     .setPageSize(5)
                     .build()
-                return LivePagedListBuilder(localDataSource.getDataMovie(), config).build()
+                return LivePagedListBuilder(localDataSource.getDataMovie(sort), config).build()
             }
 
 
@@ -71,19 +71,19 @@ class MovieTvRepository(
 
     }
 
-    override fun loadTvShowApi(): LiveData<Resource<PagedList<MovieTVEntity>>> {
+    override fun loadTvShowApi(sort: String): LiveData<Resource<PagedList<MovieTVEntity>>> {
         return object :
             NetworkBoundResource<PagedList<MovieTVEntity>, ArrayList<ResultsTvShowItem>>(
                 appExecutors
             ) {
-            override fun loadFromDB(): LiveData<PagedList<MovieTVEntity>>{
+            override fun loadFromDB(): LiveData<PagedList<MovieTVEntity>> {
                 val config = PagedList.Config.Builder()
                     .setEnablePlaceholders(false)
                     .setInitialLoadSizeHint(5)
                     .setPageSize(5)
                     .build()
 
-                return LivePagedListBuilder(localDataSource.getDataTV(), config).build()
+                return LivePagedListBuilder(localDataSource.getDataTV(sort), config).build()
             }
 
 
@@ -184,14 +184,18 @@ class MovieTvRepository(
         return tvShowDetailData
     }
 
-    override fun getFavoriteMovie(): LiveData<List<MovieTVEntity>> = localDataSource.getFavoriteMovie()
+    override fun getFavoriteMovie(): LiveData<List<MovieTVEntity>> =
+        localDataSource.getFavoriteMovie()
 
-    override fun getFavoriteTvShow(): LiveData<List<MovieTVEntity>> = localDataSource.getFavoriteTvShow()
+    override fun getFavoriteTvShow(): LiveData<List<MovieTVEntity>> =
+        localDataSource.getFavoriteTvShow()
 
 
-    override fun favorited(id: String) = appExecutors.diskIO().execute { localDataSource.favorited(id) }
+    override fun favorited(id: String) =
+        appExecutors.diskIO().execute { localDataSource.favorited(id) }
 
-    override fun unfavorited(id: String) = appExecutors.diskIO().execute { localDataSource.unfavorited(id) }
+    override fun unfavorited(id: String) =
+        appExecutors.diskIO().execute { localDataSource.unfavorited(id) }
 
 
 }

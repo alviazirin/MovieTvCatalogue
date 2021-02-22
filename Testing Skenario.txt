@@ -6,14 +6,14 @@
  
 * Memeriksa Dependency Injection pada repository:
 
--> Memastikan depency yang diinjeksi dari RemoteDataSource tidak null
+-> Memastikan depency yang diinjeksi dari RemoteDataSource, LocalDataSource dan Appexecutors tidak null
 
 -> Memastikan kelas repository mendapatkan depency tersebut (tidak null)
 ------------
 
 * Memastikan fungsi loadMovie 
 
--> meload movie dari API-dummy dan memastikan tidak null
+-> meload movie dari localDataSource dan memastikan tidak null
 
 -> memastikan jumlah movie dari dummy sesuai dengan jumlah seharusnya
 
@@ -22,7 +22,7 @@
 
 * Memastikan fungsi loadTvShow 
 
--> meload tvShow dari API-dummy dan memastikan tidak null
+-> meload tvShow dari localDataSource dan memastikan tidak null
 
 -> memastikan jumlah tvShow dari dummy sesuai dengan jumlah seharusnya
 
@@ -99,7 +99,7 @@
 
 -> meload movie data dari dummy dan memastikan tidak null
 
--> memastikan jumlah data yang diload telah sesuai dengan seharusnya
+-> memastikan jumlah data yang diload dengan implementasi paging memiliki jumlah sesuai yakni 5
 
 -> memastikan observer livedata memperhatikan perubahan data
 -------------
@@ -130,11 +130,48 @@
 
 -> meload tvShow data dari dummy dan memastikan tidak null
 
--> memastikan jumlah data yang diload telah sesuai dengan seharusnya
+-> memastikan jumlah data yang diload dengan implementasi paging memiliki jumlah yang sesuai yakni 5
 
 -> memastikan observer livedata memperhatikan perubahan data
 ---------
 
+------------------------- MovieFavoriteViewModelTest: ---------------------
+* Memeriksa Dependency Injection
+
+-> Memastikan dependency injection dari Repository tidak null
+
+-> Memastikan kelas ViewModel menerima dependency injection (tidak null)
+-----------
+
+
+* Memeriksa fungsi getMovie
+
+-> meload movies data dari dummy dan memastikan tidak null
+
+-> memastikan jumlah data telah sesuai dengan seharusnya
+
+-> memastikan observer livedata memperhatikan perubahan data
+---------
+
+----------------------- TvFavoriteViewModelTest: -----------------------
+
+* Memeriksa Dependency Injection
+
+-> Memastikan dependency injection dari Repository tidak null
+
+-> Memastikan kelas ViewModel menerima dependency injection (tidak null)
+-----------
+
+
+
+* Memeriksa fungsi getTvFavorite
+
+-> meload tvShow data dari dummy dan memastikan tidak null
+
+-> memastikan jumlah data telah sesuai dengan seharusnya
+
+-> memastikan observer livedata memperhatikan perubahan data
+---------
 
 
 
@@ -164,7 +201,6 @@
 
 -> memastikan komponen textview untuk data telah muncul untuk masing-masing data (title, year, genre, director, description)
 
--> memastikan data yang ditampilkan di textview telah sama dengan yang berada di sumberl untuk masing-masing textview (title, year, genre, director, description)
 
 
 
@@ -174,7 +210,6 @@
 
 -> memastikan komponen textview untuk data telah muncul untuk masing-masing data (title, year, genre, director, description)
 
--> memastikan data yang ditampilkan di textview telah sama dengan yang berada di sumberl untuk masing-masing textview (title, year, genre, director, description)
 
 
 
@@ -183,3 +218,30 @@
 -> memastikan button fab share tampil
 
 -> memastikan button fab dapat di klik
+
+* Test UI menu Favorite
+-> melakukan klik pada recylerview movie dan memastikan tombol favorite (fab_fav) muncul
+
+-> melakukan klik pada tombol favorite (fab_fav)
+
+-> menekan tombol kembali
+
+-> melakukan klik pada text "Tv Shows"
+
+-> memastikan recylerview tvShow (rv_tvShow) muncul
+
+-> melakukan klik pada recyclerview tvShow dan memastikan tombol favorite muncul
+
+-> melakukan klik pada tombol favorite
+
+-> menekan tombol kembali
+
+-> memastikan menu favorite muncul (R.id.mn_favorite)
+
+-> melakukan klik pada menu favorite
+
+-> memastikan recyclerview pada tab movies muncul, menunjukkan bahwa fungsi favorite berhasil
+
+-> melakukan klik pada text "Tv Shows"
+
+-> memastikan recyclerview pada tab tvShows muncul, menunjukkan bahwa fungsi favorite berhasil

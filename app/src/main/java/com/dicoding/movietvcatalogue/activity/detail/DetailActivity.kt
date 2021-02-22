@@ -15,7 +15,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class DetailActivity : AppCompatActivity() {
 
-    private lateinit var detailActivityBinding: ActivityDetailActitvityBinding
+
     private var _detailActivityBinding: ActivityDetailActitvityBinding? = null
     private val binding get() = _detailActivityBinding
     private val viewModel by viewModel<DetailViewModel>()
@@ -30,6 +30,8 @@ class DetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         _detailActivityBinding = ActivityDetailActitvityBinding.inflate(layoutInflater)
         setContentView(binding?.root)
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
 
         val extras = intent.extras
@@ -54,7 +56,7 @@ class DetailActivity : AppCompatActivity() {
 
             binding?.fabFav?.setOnClickListener {
 
-                if (fav){
+                if (fav) {
                     viewModel.unfavorited(id.toString())
                     stateFavorite(!fav)
                 } else {
@@ -66,7 +68,7 @@ class DetailActivity : AppCompatActivity() {
         binding?.fabShare?.setOnClickListener {
             val sendIntent = Intent().apply {
                 action = Intent.ACTION_SEND
-                putExtra(EXTRA_TEXT, detailActivityBinding.tvUrl.text)
+                putExtra(EXTRA_TEXT, binding?.tvUrl?.text)
                 type = "text/plain"
             }
             val shareIntent = Intent.createChooser(sendIntent, "Share To")
@@ -98,8 +100,8 @@ class DetailActivity : AppCompatActivity() {
         }
     }
 
-    private fun stateFavorite(state: Boolean){
-        if (state){
+    private fun stateFavorite(state: Boolean) {
+        if (state) {
             binding?.fabFav?.setImageResource(R.drawable.ic_favorite)
         } else {
             binding?.fabFav?.setImageResource(R.drawable.ic_unfavorite)

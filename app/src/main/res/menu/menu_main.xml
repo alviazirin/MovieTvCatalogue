@@ -7,4 +7,16 @@
         android:icon="@drawable/ic_favorite"
         android:title="@string/menu_favorite"
         app:showAsAction="always" />
+    <item
+        android:id="@+id/st_az"
+        android:title="@string/sort_a_z" />
+    <item
+        android:id="@+id/st_za"
+        android:title="@string/sort_z_a" />
+    <item
+        android:id="@+id/st_ne"
+        android:title="@string/newest" />
+    <item
+        android:id="@+id/st_ol"
+        android:title="@string/oldest" />
 </menu>

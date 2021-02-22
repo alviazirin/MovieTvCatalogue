@@ -11,6 +11,7 @@ import com.dicoding.movietvcatalogue.di.roomModule
 import com.dicoding.movietvcatalogue.di.viewModelModule
 import com.dicoding.movietvcatalogue.entity.MovieTVEntity
 import com.dicoding.movietvcatalogue.utils.DataDummy
+import com.dicoding.movietvcatalogue.utils.SortUtils
 import com.dicoding.movietvcatalogue.vo.Resource
 import com.nhaarman.mockitokotlin2.verify
 import org.junit.Assert.assertEquals
@@ -75,9 +76,9 @@ class TvShowViewModelTest : KoinTest {
         tvShow.value = dummyData
 
 
-        `when`(mock.getTvShow()).thenReturn(tvShow)
-        mock.getTvShow()
-        val viewModel = mock.getTvShow()
+        `when`(mock.getTvShow(SortUtils.AZ)).thenReturn(tvShow)
+        mock.getTvShow(SortUtils.AZ)
+        val viewModel = mock.getTvShow(SortUtils.AZ)
         assertNotNull(viewModel)
         assertEquals(5, viewModel.value?.data?.size)
 

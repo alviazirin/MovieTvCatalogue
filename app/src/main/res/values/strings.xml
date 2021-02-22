@@ -14,4 +14,8 @@
     <string name="place_holder">Place Holder</string>
     <string name="reset_warn">Something is wrong, please refresh page</string>
     <string name="menu_favorite">Favorite</string>
+    <string name="sort_a_z">Sort A~Z</string>
+    <string name="sort_z_a">Sort Z~A</string>
+    <string name="newest">Newest</string>
+    <string name="oldest">Oldest</string>
 </resources>

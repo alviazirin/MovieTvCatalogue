@@ -11,16 +11,15 @@ class AppExecutors @VisibleForTesting constructor(
     private val networkIO: Executor,
     private val mainThread: Executor
 ) {
-    companion object{
+    companion object {
         private const val THREAD_COUNT = 3
     }
 
     constructor() : this(
-            Executors.newSingleThreadExecutor(),
-            Executors.newFixedThreadPool(THREAD_COUNT),
-            MainThreadExecutor()
+        Executors.newSingleThreadExecutor(),
+        Executors.newFixedThreadPool(THREAD_COUNT),
+        MainThreadExecutor()
     )
-
 
 
     fun diskIO(): Executor = diskIO

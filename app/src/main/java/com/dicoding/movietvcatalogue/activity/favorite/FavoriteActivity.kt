@@ -1,8 +1,7 @@
 package com.dicoding.movietvcatalogue.activity.favorite
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.dicoding.movietvcatalogue.R
+import androidx.appcompat.app.AppCompatActivity
 import com.dicoding.movietvcatalogue.databinding.ActivityFavoriteBinding
 
 class FavoriteActivity : AppCompatActivity() {

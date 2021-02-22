@@ -8,20 +8,20 @@ import com.dicoding.movietvcatalogue.vo.Resource
 
 interface MovieTvDataSource {
 
-  fun loadMovieApi(): LiveData<Resource<PagedList<MovieTVEntity>>>
+    fun loadMovieApi(sort: String): LiveData<Resource<PagedList<MovieTVEntity>>>
 
-  fun loadTvShowApi(): LiveData<Resource<PagedList<MovieTVEntity>>>
+    fun loadTvShowApi(sort: String): LiveData<Resource<PagedList<MovieTVEntity>>>
 
-  fun loadDetailMovieApi(movieId: String): LiveData<MovieTvDetailEntity>
+    fun loadDetailMovieApi(movieId: String): LiveData<MovieTvDetailEntity>
 
-  fun loadDetailTvShowApi(tvShowId: String): LiveData<MovieTvDetailEntity>
+    fun loadDetailTvShowApi(tvShowId: String): LiveData<MovieTvDetailEntity>
 
-  fun getFavoriteMovie(): LiveData<List<MovieTVEntity>>
+    fun getFavoriteMovie(): LiveData<List<MovieTVEntity>>
 
-  fun getFavoriteTvShow(): LiveData<List<MovieTVEntity>>
+    fun getFavoriteTvShow(): LiveData<List<MovieTVEntity>>
 
-  fun favorited(id: String)
+    fun favorited(id: String)
 
-  fun unfavorited(id: String)
+    fun unfavorited(id: String)
 
 }

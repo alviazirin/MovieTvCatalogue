@@ -12,18 +12,6 @@ class TvShowViewModel(private val movieTvRepository: MovieTvRepository) : ViewMo
     private val _tvShowData = MutableLiveData<ArrayList<MovieTVEntity>>()
     private val tvShowData: LiveData<ArrayList<MovieTVEntity>> = _tvShowData
 
-    /*fun fetchTvShow() {
-        val tvShowList = ArrayList<MovieTVEntity>()
-
-        movieTvRepository.loadTvShowApi().observeForever(Observer { tvShows ->
-            for (tvShow in tvShows) {
-                val show = MovieTVEntity(tvShow.id, tvShow.title, tvShow.date, tvShow.poster)
-
-                tvShowList.add(show)
-            }
-            _tvShowData.value = tvShowList
-        })
-    }*/
-
-    fun getTvShow(): LiveData<Resource<PagedList<MovieTVEntity>>> = movieTvRepository.loadTvShowApi()
+    fun getTvShow(sort: String): LiveData<Resource<PagedList<MovieTVEntity>>> =
+        movieTvRepository.loadTvShowApi(sort)
 }

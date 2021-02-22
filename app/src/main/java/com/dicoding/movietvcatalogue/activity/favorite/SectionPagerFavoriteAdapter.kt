@@ -12,7 +12,7 @@ import com.dicoding.movietvcatalogue.activity.favorite.tv.TvFavorite
 class SectionPagerFavoriteAdapter(private val mContext: Context, fm: FragmentManager) :
     FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
-    companion object{
+    companion object {
         @StringRes
         private val TITLES = intArrayOf(R.string.movie, R.string.tv_show)
     }
@@ -21,7 +21,7 @@ class SectionPagerFavoriteAdapter(private val mContext: Context, fm: FragmentMan
 
     override fun getItem(position: Int): Fragment {
         var fragment: Fragment? = null
-        when(position){
+        when (position) {
             0 -> fragment = MovieFavorite()
             1 -> fragment = TvFavorite()
 
@@ -29,6 +29,7 @@ class SectionPagerFavoriteAdapter(private val mContext: Context, fm: FragmentMan
         return fragment as Fragment
     }
 
-    override fun getPageTitle(position: Int): CharSequence? = mContext.resources.getString(TITLES[position])
+    override fun getPageTitle(position: Int): CharSequence? =
+        mContext.resources.getString(TITLES[position])
 
 }

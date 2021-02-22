@@ -1,7 +1,6 @@
 package com.dicoding.movietvcatalogue.activity.favorite.movie
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.dicoding.movietvcatalogue.data.source.MovieTvRepository
@@ -12,10 +11,10 @@ import com.dicoding.movietvcatalogue.di.viewModelModule
 import com.dicoding.movietvcatalogue.entity.MovieTVEntity
 import com.dicoding.movietvcatalogue.utils.DataDummy
 import com.nhaarman.mockitokotlin2.verify
-import org.junit.Test
-
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotNull
 import org.junit.Rule
+import org.junit.Test
 import org.junit.runner.RunWith
 import org.koin.core.component.get
 import org.koin.test.KoinTest
@@ -48,7 +47,7 @@ class MovieFavoriteViewModelTest : KoinTest {
     private lateinit var observer: Observer<List<MovieTVEntity>>
 
     @Test
-    fun checkInjection(){
+    fun checkInjection() {
         val mock = declareMock<MovieTvRepository>()
 
         assertNotNull(get<MovieTvRepository>())

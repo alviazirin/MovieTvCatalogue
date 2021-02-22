@@ -26,23 +26,13 @@ class MovieAdapter : PagedListAdapter<MovieTVEntity, MovieAdapter.MovieViewHolde
             ): Boolean {
                 return oldItem == newItem
             }
-
         }
     }
 
-    private val listShows = ArrayList<MovieTVEntity>()
     private var onItemClickCallback: ItemClickCallback? = null
 
     fun setOnItemClick(onItemClick: ItemClickCallback) {
         this.onItemClickCallback = onItemClick
-    }
-
-
-    fun setShow(shows: List<MovieTVEntity>?) {
-        if (shows == null)
-            return
-        this.listShows.clear()
-        this.listShows.addAll(shows)
     }
 
     inner class MovieViewHolder(private val binding: ItemMoviesBinding) :
@@ -73,10 +63,10 @@ class MovieAdapter : PagedListAdapter<MovieTVEntity, MovieAdapter.MovieViewHolde
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
         val show = getItem(position)
-        if (show != null){
-        holder.bind(show)
+        if (show != null) {
+            holder.bind(show)
         }
     }
 
-    /*override fun getItemCount(): Int = listShows.size*/
+
 }

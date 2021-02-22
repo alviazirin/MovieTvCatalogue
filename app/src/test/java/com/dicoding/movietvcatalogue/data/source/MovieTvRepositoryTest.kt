@@ -19,6 +19,7 @@ import com.dicoding.movietvcatalogue.entity.MovieTVEntity
 import com.dicoding.movietvcatalogue.utils.AppExecutors
 import com.dicoding.movietvcatalogue.utils.DataDummy
 import com.dicoding.movietvcatalogue.utils.PagedListUtil
+import com.dicoding.movietvcatalogue.utils.SortUtils
 import com.dicoding.movietvcatalogue.vo.Resource
 import com.nhaarman.mockitokotlin2.verify
 import org.junit.Assert.assertEquals
@@ -26,7 +27,6 @@ import org.junit.Assert.assertNotNull
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.koin.core.component.get
 import org.koin.test.KoinTest
 import org.koin.test.KoinTestRule
 import org.koin.test.get
@@ -68,7 +68,8 @@ class MovieTvRepositoryTest : KoinTest {
     @Mock
     private lateinit var observerDetailTvShow: Observer<ApiResponse<TvShowDetailResponse>>
 
-    private val dataSourceFactory = mock(DataSource.Factory::class.java) as DataSource.Factory<Int, MovieTVEntity>
+    private val dataSourceFactory =
+        mock(DataSource.Factory::class.java) as DataSource.Factory<Int, MovieTVEntity>
 
     @Test
     fun checkInjection() {
@@ -88,11 +89,12 @@ class MovieTvRepositoryTest : KoinTest {
     fun loadMovie() {
 
         val mock = declareMock<LocalDataSource>()
-        `when`(mock.getDataMovie()).thenReturn(dataSourceFactory)
-        mock.getDataMovie()
+        `when`(mock.getDataMovie(SortUtils.AZ)).thenReturn(dataSourceFactory)
+        mock.getDataMovie(SortUtils.AZ)
 
-        val movieEntities = Resource.success(PagedListUtil.mockPagedList(DataDummy.generateDummyMovie()))
-        verify(mock).getDataMovie()
+        val movieEntities =
+            Resource.success(PagedListUtil.mockPagedList(DataDummy.generateDummyMovie()))
+        verify(mock).getDataMovie(SortUtils.AZ)
         assertNotNull(movieEntities.data)
         assertEquals(19, movieEntities.data?.size)
 
@@ -101,11 +103,12 @@ class MovieTvRepositoryTest : KoinTest {
     @Test
     fun loadTvShow() {
         val mock = declareMock<LocalDataSource>()
-        `when`(mock.getDataTV()).thenReturn(dataSourceFactory)
-        mock.getDataTV()
+        `when`(mock.getDataTV(SortUtils.AZ)).thenReturn(dataSourceFactory)
+        mock.getDataTV(SortUtils.AZ)
 
-        val showEntities = Resource.success(PagedListUtil.mockPagedList(DataDummy.generateDummyTvShow()))
-        verify(mock).getDataTV()
+        val showEntities =
+            Resource.success(PagedListUtil.mockPagedList(DataDummy.generateDummyTvShow()))
+        verify(mock).getDataTV(SortUtils.AZ)
         assertNotNull(showEntities.data)
         assertEquals(12, showEntities.data?.size)
     }

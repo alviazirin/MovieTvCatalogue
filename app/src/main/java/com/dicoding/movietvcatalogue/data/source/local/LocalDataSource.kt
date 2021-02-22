@@ -4,20 +4,28 @@ import androidx.lifecycle.LiveData
 import androidx.paging.DataSource
 import com.dicoding.movietvcatalogue.data.source.local.database.MovieTvDao
 import com.dicoding.movietvcatalogue.entity.MovieTVEntity
+import com.dicoding.movietvcatalogue.utils.SortUtils
 
 class LocalDataSource(val movieTvDao: MovieTvDao) {
-    companion object{
+    companion object {
         private var INSTANCE: LocalDataSource? = null
 
         fun getInstance(movieTvDao: MovieTvDao): LocalDataSource =
             INSTANCE ?: LocalDataSource(movieTvDao)
     }
 
-    fun getDataMovie(): DataSource.Factory<Int, MovieTVEntity> = movieTvDao.getDataMovie()
+    fun getDataMovie(sort: String): DataSource.Factory<Int, MovieTVEntity> {
+        val query = SortUtils.getSortedMovieQuery(sort)
+        return movieTvDao.getDataMovie(query)
+    }
 
-    fun getDataTV(): DataSource.Factory<Int, MovieTVEntity> = movieTvDao.getDataTv()
+    fun getDataTV(sort: String): DataSource.Factory<Int, MovieTVEntity> {
+        val query = SortUtils.getSortedTvShowQuery(sort)
+        return movieTvDao.getDataTv(query)
+    }
 
-    fun insertMovieTv(movieTvItems: ArrayList<MovieTVEntity>) = movieTvDao.insertMovieTv(movieTvItems)
+    fun insertMovieTv(movieTvItems: ArrayList<MovieTVEntity>) =
+        movieTvDao.insertMovieTv(movieTvItems)
 
     fun deleteMovieTv(movieTVEntity: MovieTVEntity) = movieTvDao.deleteMovieTv(movieTVEntity)
 

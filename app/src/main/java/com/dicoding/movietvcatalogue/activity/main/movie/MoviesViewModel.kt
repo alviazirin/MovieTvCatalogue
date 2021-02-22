@@ -13,23 +13,9 @@ import com.dicoding.movietvcatalogue.vo.Resource
 class MoviesViewModel(private val movieTvRepository: MovieTvRepository) : ViewModel() {
     private val _moviesData = MutableLiveData<ArrayList<MovieTVEntity>>()
     private val moviesData: LiveData<ArrayList<MovieTVEntity>> = _moviesData
-    /*fun fetchMovie(): LiveData<ArrayList<MovieTVEntity>> {
-        val movieList = ArrayList<MovieTVEntity>()
 
-        movieTvRepository.loadMovieApi().observeForever(Observer { movies ->
-            for (movie in movies) {
-                val mov = MovieTVEntity(movie.id, movie.title, movie.date, movie.poster)
-
-                movieList.add(mov)
-            }
-            _moviesData.value = movieList
-        })
-        return moviesData
-    }*/
-
-    //fun getdaMovie(): LiveData<Resource<ArrayList<MovieTVEntity>>> = movieTvRepository.loadMovieApi()
-
-    fun getMovie(): LiveData<Resource<PagedList<MovieTVEntity>>> = movieTvRepository.loadMovieApi()
+    fun getMovie(sort: String): LiveData<Resource<PagedList<MovieTVEntity>>> =
+        movieTvRepository.loadMovieApi(sort)
 
     fun getNull(): List<MovieTvDetailEntity> = DataDummy.generateNullTest()
 }

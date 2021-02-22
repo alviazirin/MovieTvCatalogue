@@ -1,7 +1,6 @@
 package com.dicoding.movietvcatalogue.activity.favorite.movie
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -13,15 +12,16 @@ class MovieFavoriteAdapter : RecyclerView.Adapter<MovieFavoriteAdapter.MovieView
 
     private val listShow = ArrayList<MovieTVEntity>()
 
-    fun setShow(shows: List<MovieTVEntity>?){
-        if (shows == null)return
+    fun setShow(shows: List<MovieTVEntity>?) {
+        if (shows == null) return
         this.listShow.clear()
         this.listShow.addAll(shows)
     }
 
-    inner class MovieViewHolder(private val binding: ItemMoviesBinding): RecyclerView.ViewHolder(binding.root) {
-        fun bind(show: MovieTVEntity){
-            with(binding){
+    inner class MovieViewHolder(private val binding: ItemMoviesBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(show: MovieTVEntity) {
+            with(binding) {
                 Glide.with(itemView.context)
                     .load(show.poster)
                     .apply(RequestOptions().override(130, 144))
