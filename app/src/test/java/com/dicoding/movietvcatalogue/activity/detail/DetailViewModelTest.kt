@@ -23,6 +23,7 @@ import org.koin.test.mock.declareMock
 import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.Mockito.`when`
+import org.mockito.Mockito.times
 
 
 import org.mockito.junit.MockitoJUnitRunner
@@ -115,6 +116,20 @@ class DetailViewModelTest : KoinTest {
 
         data.observeForever(observer)
         verify(observer).onChanged(dataDummyDetail)
+    }
+
+    @Test
+    fun testFavoriteMovie(){
+        val mock = declareMock<DetailViewModel>()
+        mock.favorite("1")
+        verify(mock, times(1)).favorite("1")
+    }
+
+    @Test
+    fun testUnfavoriteMovie(){
+        val mock = declareMock<DetailViewModel>()
+        mock.unfavorited("1")
+        verify(mock, times(1)).unfavorited("1")
     }
 
 

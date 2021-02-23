@@ -51,6 +51,46 @@
 
 
 
+* Memeriksa fungsi getMovieFavorite
+
+-> meload data dari dummy dan memastikan tidak null
+
+-> memastikan jumlahnya sesuai dengan seharusnya (semua data terload)
+
+-> memastikan observer livedata memperhatikan perubahan data
+-----------
+
+
+
+* Memeriksa fungsi getTvShowFavorite
+
+-> meload data dari dummy dan memastikan tidak null
+
+-> memastikan jumlahnya sesuai dengan seharusnya (semua data terload)
+
+-> memastikan observer livedata memperhatikan perubahan data
+-----------
+
+
+
+* Memeriksa fungsi favorite()
+
+-> mock kelas MovieTvRepository, dan melakukan fungsi favorited()
+
+-> memastikan fungsi favorited() terinvokasi(terpanggil) satu kali
+--------------
+
+
+
+*Memeriksa fungsi unfavorite ()
+
+-> mock kelas MovieTvRepository, dan melakukan fungsi favorited()
+
+-> memastikan fungsi unfavorited() terinvokasi(terpanggil) satu kali
+--------------
+
+
+
 -------------------------  DetailViewModelTest: -------------------
 
 * Memeriksa Dependency Injection
@@ -81,6 +121,26 @@
 
 -> memastikan observer livedata memperhatikan perubahan data
 ------------
+
+
+
+* Memeriksa fungsi favorite()
+
+-> mock kelas DetailViewModel, dan melakukan fungsi favorited()
+
+-> memastikan fungsi favorited() terinvokasi(terpanggil) satu kali
+--------------
+
+
+
+*Memeriksa fungsi unfavorite ()
+
+-> mock kelas DetailViewModel, dan melakukan fungsi favorited()
+
+-> memastikan fungsi unfavorited() terinvokasi(terpanggil) satu kali
+--------------
+
+
 
 
 
@@ -224,7 +284,7 @@
 
 
 
-* Test UI menu Favorite
+* Test UI interaksi Favorite
 -> melakukan klik pada recylerview movie dan memastikan tombol favorite (fab_fav) muncul
 
 -> melakukan klik pada tombol favorite (fab_fav)
@@ -250,3 +310,29 @@
 -> melakukan klik pada text "Tv Shows"
 
 -> memastikan recyclerview pada tab tvShows muncul, menunjukkan bahwa fungsi favorite berhasil
+
+
+
+* Test UI interaksi unfavorite
+
+-> melakukan serangkaian interaksi ui seperti pada test UI interaksi favorite
+
+-> kembali pada activity favorite dan memastikan recylerview movie (rv_movies) muncul
+
+-> melakukan klik pada recylerview item ke 1
+
+-> memastikan button favorite (fab_fav) muncul
+
+-> melakukan klik pada button favorite
+
+-> menekan tombol kembali
+
+-> menekan pada layar dengan teks "TvShow Favorite"
+
+-> memastikan recyclerview tvshow (rv_tvshow) muncul
+
+-> melakukan klik pada recylerview item ke 1
+
+-> memastikan button favorite (fab_fav) muncul
+
+-> melakukan klik pada button favorite

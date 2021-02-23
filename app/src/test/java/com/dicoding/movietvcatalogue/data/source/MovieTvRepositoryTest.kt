@@ -1,6 +1,7 @@
 package com.dicoding.movietvcatalogue.data.source
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.paging.DataSource
@@ -31,8 +32,7 @@ import org.koin.test.get
 import org.koin.test.mock.MockProviderRule
 import org.koin.test.mock.declareMock
 import org.mockito.Mock
-import org.mockito.Mockito.`when`
-import org.mockito.Mockito.mock
+import org.mockito.Mockito.*
 import org.mockito.junit.MockitoJUnitRunner
 
 @RunWith(MockitoJUnitRunner::class)
@@ -58,6 +58,12 @@ class MovieTvRepositoryTest : KoinTest {
 
     @Mock
     private lateinit var observerDetailTvShow: Observer<ApiResponse<TvShowDetailResponse>>
+
+    @Mock
+    private lateinit var observerGetFavoriteMovie: Observer<List<MovieTVEntity>>
+
+    @Mock
+    private lateinit var observerGetFavoriteTvShow: Observer<List<MovieTVEntity>>
 
     private val dataSourceFactory =
         mock(DataSource.Factory::class.java) as DataSource.Factory<Int, MovieTVEntity>
@@ -156,5 +162,50 @@ class MovieTvRepositoryTest : KoinTest {
         verify(observerDetailTvShow).onChanged(dataDummyDetail)
     }
 
+    @Test
+    fun getFavoriteMovie(){
+        val dataDummy = DataDummy.generateDummyMovie().toList()
+        val data = MutableLiveData<List<MovieTVEntity>>()
+        data.value = dataDummy
+        val mock = declareMock<LocalDataSource>()
+        `when`(mock.getFavoriteMovie()).thenReturn(data)
+        val dataFavorite = mock.getFavoriteMovie()
+        assertNotNull(dataFavorite)
+        assertEquals(data.value?.size, dataFavorite.value?.size)
+
+        dataFavorite.observeForever(observerGetFavoriteMovie)
+        verify(observerGetFavoriteMovie).onChanged(dataDummy)
+    }
+
+    @Test
+    fun getFavoriteTvShow(){
+        val dataDummy = DataDummy.generateDummyTvShow().toList()
+        val data = MutableLiveData<List<MovieTVEntity>>()
+        data.value = dataDummy
+        val mock = declareMock<LocalDataSource>()
+        `when`(mock.getFavoriteTvShow()).thenReturn(data)
+
+        val dataFavorite = mock.getFavoriteTvShow()
+
+        assertNotNull(dataFavorite)
+        assertEquals(data.value?.size, dataFavorite.value?.size)
+
+        dataFavorite.observeForever(observerGetFavoriteTvShow)
+        verify(observerGetFavoriteTvShow).onChanged(dataDummy)
+    }
+
+    @Test
+    fun testFavoriteFunc(){
+        val mock = declareMock<MovieTvRepository>()
+        mock.favorited("1")
+        verify(mock, times(1)).favorited("1")
+    }
+
+    @Test
+    fun testUnfavoriteFunc(){
+        val mock = declareMock<MovieTvRepository>()
+        mock.unfavorited("1")
+        verify(mock, times(1)).unfavorited("1")
+    }
 
 }
