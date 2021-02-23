@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.dicoding.movietvcatalogue.R
 import com.dicoding.movietvcatalogue.activity.detail.DetailActivity
 import com.dicoding.movietvcatalogue.activity.favorite.FavoriteActivity
-import com.dicoding.movietvcatalogue.activity.main.ItemClickCallback
+import com.dicoding.movietvcatalogue.activity.ItemClickCallback
 import com.dicoding.movietvcatalogue.databinding.FragmentTvBinding
 import com.dicoding.movietvcatalogue.entity.MovieTVEntity
 import com.dicoding.movietvcatalogue.utils.SortUtils

@@ -14,7 +14,7 @@ class SectionPagerFavoriteAdapter(private val mContext: Context, fm: FragmentMan
 
     companion object {
         @StringRes
-        private val TITLES = intArrayOf(R.string.movie, R.string.tv_show)
+        private val TITLES = intArrayOf(R.string.movie_fav, R.string.tv_fav)
     }
 
     override fun getCount(): Int = 2

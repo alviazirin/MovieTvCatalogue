@@ -1,4 +1,4 @@
-package com.dicoding.movietvcatalogue.activity.main
+package com.dicoding.movietvcatalogue.activity
 
 import com.dicoding.movietvcatalogue.entity.MovieTVEntity
 

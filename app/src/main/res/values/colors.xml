@@ -13,4 +13,6 @@
     <color name="accentTheme">#023047</color>
     <color name="tvTheme">#ffb703</color>
     <color name="tvTheme_dark">#fb8500</color>
+    <color name="fav1">#ef476f</color>
+    <color name="fav2">#06d6a0</color>
 </resources>

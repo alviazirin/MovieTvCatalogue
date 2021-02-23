@@ -219,6 +219,11 @@
 
 -> memastikan button fab dapat di klik
 
+
+
+
+
+
 * Test UI menu Favorite
 -> melakukan klik pada recylerview movie dan memastikan tombol favorite (fab_fav) muncul
 

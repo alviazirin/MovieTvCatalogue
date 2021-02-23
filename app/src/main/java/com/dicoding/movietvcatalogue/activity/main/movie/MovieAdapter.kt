@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import com.dicoding.movietvcatalogue.activity.main.ItemClickCallback
+import com.dicoding.movietvcatalogue.activity.ItemClickCallback
 import com.dicoding.movietvcatalogue.databinding.ItemMoviesBinding
 import com.dicoding.movietvcatalogue.entity.MovieTVEntity
 
