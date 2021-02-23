@@ -29,15 +29,15 @@ class RemoteDataSource {
                         movies.value = ApiResponse.success(responseBody.results)
                         EspressoIdlingResource.decrement()
                     } else {
-                        ApiResponse.empty(msg,null)
+                        ApiResponse.empty(msg, null)
                     }
                 } else {
-                    ApiResponse.empty(msg,null)
+                    ApiResponse.empty(msg, null)
                 }
             }
 
             override fun onFailure(call: Call<MovieResponse>, t: Throwable) {
-                ApiResponse.error(msg,null)
+                ApiResponse.error(msg, null)
             }
         })
         return movies
@@ -58,17 +58,17 @@ class RemoteDataSource {
                         shows.value = ApiResponse.success(responseBody.results)
                         EspressoIdlingResource.decrement()
                     } else {
-                        ApiResponse.empty(msg,null)
+                        ApiResponse.empty(msg, null)
                     }
                 } else {
-                    ApiResponse.empty(msg,null)
+                    ApiResponse.empty(msg, null)
                 }
             }
 
             override fun onFailure(call: Call<TvShowResponse>, t: Throwable) {
                 Log.d(connError, msg)
                 Log.d(connError, t.message.toString())
-                ApiResponse.error(msg,null)
+                ApiResponse.error(msg, null)
             }
         })
         return shows
@@ -89,17 +89,17 @@ class RemoteDataSource {
                         detail.value = ApiResponse.success(responseBody)
                         EspressoIdlingResource.decrement()
                     } else {
-                        ApiResponse.empty(msg,null)
+                        ApiResponse.empty(msg, null)
                     }
                 } else {
-                    ApiResponse.empty(msg,null)
+                    ApiResponse.empty(msg, null)
                 }
             }
 
             override fun onFailure(call: Call<MovieDetailResponse>, t: Throwable) {
                 Log.d(connError, msg)
                 Log.d(connError, t.message.toString())
-                ApiResponse.error(msg,null)
+                ApiResponse.error(msg, null)
             }
         })
         return detail
@@ -121,17 +121,17 @@ class RemoteDataSource {
                         detail.value = ApiResponse.success(responseBody)
                         EspressoIdlingResource.decrement()
                     } else {
-                        ApiResponse.empty(msg,null)
+                        ApiResponse.empty(msg, null)
                     }
                 } else {
-                    ApiResponse.empty(msg,null)
+                    ApiResponse.empty(msg, null)
                 }
             }
 
             override fun onFailure(call: Call<TvShowDetailResponse>, t: Throwable) {
                 Log.d(connError, msg)
                 Log.d(connError, t.message.toString())
-                ApiResponse.error(msg,null)
+                ApiResponse.error(msg, null)
             }
         })
         return detail

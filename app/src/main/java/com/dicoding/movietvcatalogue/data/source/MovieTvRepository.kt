@@ -24,8 +24,6 @@ class MovieTvRepository(
 
 
     private val basePosterUrl = BuildConfig.BASE_URLIMG
-    private val _movieData = MutableLiveData<ArrayList<MovieTVEntity>>()
-    private val _tvShowData = MutableLiveData<ArrayList<MovieTVEntity>>()
     private val _movieDetailData = MutableLiveData<MovieTvDetailEntity>()
     private val _tvShowDetailData = MutableLiveData<MovieTvDetailEntity>()
 

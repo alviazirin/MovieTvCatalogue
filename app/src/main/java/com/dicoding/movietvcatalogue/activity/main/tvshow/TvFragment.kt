@@ -8,9 +8,9 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dicoding.movietvcatalogue.R
+import com.dicoding.movietvcatalogue.activity.ItemClickCallback
 import com.dicoding.movietvcatalogue.activity.detail.DetailActivity
 import com.dicoding.movietvcatalogue.activity.favorite.FavoriteActivity
-import com.dicoding.movietvcatalogue.activity.ItemClickCallback
 import com.dicoding.movietvcatalogue.databinding.FragmentTvBinding
 import com.dicoding.movietvcatalogue.entity.MovieTVEntity
 import com.dicoding.movietvcatalogue.utils.SortUtils
@@ -156,13 +156,6 @@ class TvFragment : Fragment() {
             tvBinding.progressBar.visibility = View.VISIBLE
         } else {
             tvBinding.progressBar.visibility = View.GONE
-        }
-    }
-
-    private fun showWarning(error: Boolean) {
-        if (error) {
-            tvBinding.rvTvShow.visibility = View.GONE
-            tvBinding.warning.visibility = View.VISIBLE
         }
     }
 

@@ -7,12 +7,6 @@ import com.dicoding.movietvcatalogue.entity.MovieTVEntity
 import com.dicoding.movietvcatalogue.utils.SortUtils
 
 class LocalDataSource(val movieTvDao: MovieTvDao) {
-    companion object {
-        private var INSTANCE: LocalDataSource? = null
-
-        fun getInstance(movieTvDao: MovieTvDao): LocalDataSource =
-            INSTANCE ?: LocalDataSource(movieTvDao)
-    }
 
     fun getDataMovie(sort: String): DataSource.Factory<Int, MovieTVEntity> {
         val query = SortUtils.getSortedMovieQuery(sort)
@@ -26,8 +20,6 @@ class LocalDataSource(val movieTvDao: MovieTvDao) {
 
     fun insertMovieTv(movieTvItems: ArrayList<MovieTVEntity>) =
         movieTvDao.insertMovieTv(movieTvItems)
-
-    fun deleteMovieTv(movieTVEntity: MovieTVEntity) = movieTvDao.deleteMovieTv(movieTVEntity)
 
     fun favorited(id: String) = movieTvDao.favorited(id)
 

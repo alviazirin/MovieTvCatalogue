@@ -7,8 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.dicoding.movietvcatalogue.activity.detail.DetailActivity
 import com.dicoding.movietvcatalogue.activity.ItemClickCallback
+import com.dicoding.movietvcatalogue.activity.detail.DetailActivity
 import com.dicoding.movietvcatalogue.databinding.FragmentTvFavoriteBinding
 import com.dicoding.movietvcatalogue.entity.MovieTVEntity
 import org.koin.androidx.viewmodel.ext.android.viewModel

@@ -7,7 +7,6 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.dicoding.movietvcatalogue.activity.ItemClickCallback
 import com.dicoding.movietvcatalogue.databinding.ItemFavoriteMovieBinding
-import com.dicoding.movietvcatalogue.databinding.ItemMoviesBinding
 import com.dicoding.movietvcatalogue.entity.MovieTVEntity
 
 class MovieFavoriteAdapter : RecyclerView.Adapter<MovieFavoriteAdapter.MovieViewHolder>() {
@@ -40,7 +39,8 @@ class MovieFavoriteAdapter : RecyclerView.Adapter<MovieFavoriteAdapter.MovieView
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
-        val view = ItemFavoriteMovieBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val view =
+            ItemFavoriteMovieBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return MovieViewHolder(view)
     }
 
@@ -51,7 +51,7 @@ class MovieFavoriteAdapter : RecyclerView.Adapter<MovieFavoriteAdapter.MovieView
 
     override fun getItemCount(): Int = listShow.size
 
-    fun setOnItemClick(onItemClick: ItemClickCallback){
+    fun setOnItemClick(onItemClick: ItemClickCallback) {
         this.onItemClickCallback = onItemClick
     }
 }

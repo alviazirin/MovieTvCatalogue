@@ -10,14 +10,11 @@ object SortUtils {
 
     fun getSortedMovieQuery(filter: String): SimpleSQLiteQuery {
         val baseQuery = StringBuilder().append("SELECT * FROM movietventity WHERE type = 1")
-        if (filter == AZ) {
-            baseQuery.append(" ORDER BY title ASC")
-        } else if (filter == ZA) {
-            baseQuery.append(" ORDER BY title DESC")
-        } else if (filter == NEWEST) {
-            baseQuery.append(" ORDER BY date DESC")
-        } else if (filter == OLDEST) {
-            baseQuery.append(" ORDER BY date ASC")
+        when(filter){
+            AZ -> baseQuery.append(" ORDER BY title ASC")
+            ZA -> baseQuery.append(" ORDER BY title DESC")
+            NEWEST -> baseQuery.append(" ORDER BY date DESC")
+            OLDEST -> baseQuery.append(" ORDER BY date ASC")
         }
 
         return SimpleSQLiteQuery(baseQuery.toString())
@@ -25,14 +22,12 @@ object SortUtils {
 
     fun getSortedTvShowQuery(filter: String): SimpleSQLiteQuery {
         val baseQuery = StringBuilder().append("SELECT * FROM movietventity WHERE type = 2")
-        if (filter == AZ) {
-            baseQuery.append(" ORDER BY title ASC")
-        } else if (filter == ZA) {
-            baseQuery.append(" ORDER BY title DESC")
-        } else if (filter == NEWEST) {
-            baseQuery.append(" ORDER BY date DESC")
-        } else if (filter == OLDEST) {
-            baseQuery.append(" ORDER BY date ASC")
+
+        when(filter){
+            AZ -> baseQuery.append(" ORDER BY title ASC")
+            ZA -> baseQuery.append(" ORDER BY title DESC")
+            NEWEST -> baseQuery.append(" ORDER BY date DESC")
+            OLDEST -> baseQuery.append(" ORDER BY date ASC")
         }
 
         return SimpleSQLiteQuery(baseQuery.toString())

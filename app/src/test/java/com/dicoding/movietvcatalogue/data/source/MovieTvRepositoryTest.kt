@@ -8,8 +8,6 @@ import com.dicoding.movietvcatalogue.data.source.local.LocalDataSource
 import com.dicoding.movietvcatalogue.data.source.remote.ApiResponse
 import com.dicoding.movietvcatalogue.data.source.remote.RemoteDataSource
 import com.dicoding.movietvcatalogue.data.source.remote.response.MovieDetailResponse
-import com.dicoding.movietvcatalogue.data.source.remote.response.ResultsMovieItem
-import com.dicoding.movietvcatalogue.data.source.remote.response.ResultsTvShowItem
 import com.dicoding.movietvcatalogue.data.source.remote.response.TvShowDetailResponse
 import com.dicoding.movietvcatalogue.di.BaseApplication
 import com.dicoding.movietvcatalogue.di.appModule
@@ -33,7 +31,6 @@ import org.koin.test.get
 import org.koin.test.mock.MockProviderRule
 import org.koin.test.mock.declareMock
 import org.mockito.Mock
-import org.mockito.Mockito
 import org.mockito.Mockito.`when`
 import org.mockito.Mockito.mock
 import org.mockito.junit.MockitoJUnitRunner
@@ -53,14 +50,8 @@ class MovieTvRepositoryTest : KoinTest {
 
     @get:Rule
     val mockProvider = MockProviderRule.create { clazz ->
-        Mockito.mock(clazz.java)
+        mock(clazz.java)
     }
-
-    @Mock
-    private lateinit var observerMovie: Observer<ArrayList<ResultsMovieItem>>
-
-    @Mock
-    private lateinit var observerTvshow: Observer<ArrayList<ResultsTvShowItem>>
 
     @Mock
     private lateinit var observerDetailMovie: Observer<ApiResponse<MovieDetailResponse>>

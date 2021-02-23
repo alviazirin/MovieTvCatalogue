@@ -6,6 +6,7 @@ import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.IdlingRegistry
 import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.action.ViewActions.click
+import androidx.test.espresso.action.ViewActions.scrollTo
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.matcher.ViewMatchers.*
@@ -123,11 +124,10 @@ class HomeActivityTest {
         onView(withId(R.id.fab_fav)).check(matches(isDisplayed()))
         onView(withId(R.id.fab_fav)).perform(click())
         onView(isRoot()).perform(ViewActions.pressBack())
-
         onView(withId(R.id.mn_favorite)).check(matches(isDisplayed()))
         onView(withId(R.id.mn_favorite)).perform(click())
         onView(withId(R.id.rv_movies)).check(matches(isDisplayed()))
-        onView(withText("TV Shows")).perform(click())
+        onView(withText("TvShow Favorite")).perform(click())
         onView(withId(R.id.rv_tvShow)).check(matches(isDisplayed()))
     }
 }
